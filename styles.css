@@ -522,6 +522,63 @@ p{ margin:0 0 1.1rem; color: var(--ink-soft); }
 }
 .tree-branch .tree-node{ max-width:none; }
 .tree-node.highlight{ border-color: var(--moss); box-shadow: var(--shadow-md); background: linear-gradient(160deg, var(--cream-2), var(--sand-2)); }
+
+/* ── ChakraMCP card — styled in ChakraMCP's own brand (their tokens) ──
+   editorial / rogue-zine: warm cream, ink, coral+lime+butter, Archivo
+   Expanded display + Afacad body. Links out to chakramcp.com. */
+.chakra-card{
+  --ck-paper:      oklch(96% 0.014 72);
+  --ck-paper-warm: oklch(93% 0.030 45);
+  --ck-ink:        oklch(24% 0.030 18);
+  --ck-ink-soft:   oklch(42% 0.025 22);
+  --ck-coral:      oklch(63% 0.19 28);
+  --ck-lime:       oklch(86% 0.16 128);
+  --ck-butter:     oklch(91% 0.13 96);
+  --ck-line:       oklch(78% 0.020 38);
+  display:block; position:relative; overflow:hidden; text-decoration:none;
+  font-family:'Afacad', var(--sans);
+  color: var(--ck-ink);
+  background:
+    radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, var(--ck-butter) 30%, transparent), transparent 60%),
+    var(--ck-paper-warm);
+  border:1px solid color-mix(in oklab, var(--ck-coral) 24%, var(--ck-line));
+  border-radius: 1.6rem;
+  padding:1.5rem 1.7rem 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+.chakra-card .chakra-mark{ position:relative; display:inline-block; margin-bottom:.9rem; }
+.chakra-card .chakra-mark svg{ display:block; }
+/* two tiny "satellites" nodding at the composite mark */
+.chakra-card .sat{ position:absolute; width:7px; height:7px; border-radius:50%; }
+.chakra-card .sat-lime{ background:var(--ck-lime); top:-2px; right:-4px; }
+.chakra-card .sat-butter{ background:var(--ck-butter); bottom:2px; right:-7px; width:5px; height:5px; }
+.tree-node.chakra-card .tree-tag{
+  color: var(--ck-coral); font-family:'Afacad', var(--sans);
+  font-weight:600; letter-spacing:.2em;
+}
+.tree-node.chakra-card h3{
+  font-family:'Archivo Expanded','Archivo', var(--sans); font-weight:800;
+  color: var(--ck-ink); font-size:1.5rem; line-height:1.05; letter-spacing:-.01em;
+  margin:.35rem 0 .55rem; text-transform:none;
+}
+.tree-node.chakra-card p{
+  color: var(--ck-ink-soft); font-family:'Afacad', var(--sans);
+  font-size:1.02rem; line-height:1.35; margin:0;
+}
+.chakra-card .chakra-cta{
+  display:inline-flex; align-items:center; gap:.35em; margin-top:1.05rem;
+  font-family:'Afacad', var(--sans); font-weight:600; font-size:.95rem;
+  color: var(--ck-coral);
+}
+.chakra-card .chakra-cta::after{ content:"↗"; font-size:1.05em; line-height:1; }
+.chakra-card:hover{
+  transform: translateY(-4px);
+  border-color: var(--ck-coral);
+  box-shadow: 0 24px 44px color-mix(in oklab, var(--ck-ink) 16%, transparent);
+}
+.chakra-card:hover .chakra-cta{ text-decoration:underline; text-underline-offset:3px; }
+.chakra-card:focus-visible{ outline:2px solid var(--ck-coral); outline-offset:3px; }
 .tree-node.highlight .tree-tag{ color: var(--moss); }
 .tree-leaves{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
 .leaf{ font-size:.82rem; padding:.35rem .8rem; border-radius:999px; background: rgba(15,43,30,.06); color: var(--ink-soft); }

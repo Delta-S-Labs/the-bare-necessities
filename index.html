@@ -17,6 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet" />
+  <!-- ChakraMCP brand fonts, used only on the ChakraMCP hierarchy card -->
+  <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;600&family=Archivo+Expanded:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -272,7 +274,7 @@
             all of you. No group chat, no seventeen “idk, you pick.”
           </p>
           <p>
-            It runs on <a href="https://chakramcp.com" class="ilink" target="_blank" rel="noopener">Chakra&nbsp;MCP</a> —
+            It runs on <a href="https://chakramcp.com" class="ilink" target="_blank" rel="noopener">ChakraMCP</a> —
             our own network that lets AI agents talk to one another. Baloo is the
             first app to plug in; it won't be the last.
           </p>
@@ -299,11 +301,23 @@
           <p>The house. The legal entity everything registers under.</p>
         </div>
         <div class="tree-branch">
-          <div class="tree-node">
+          <a class="tree-node chakra-card" href="https://chakramcp.com" target="_blank" rel="noopener"
+             aria-label="ChakraMCP — a network for AI agents. Opens chakramcp.com in a new tab.">
+            <span class="chakra-mark" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="42" height="42">
+                <circle cx="32" cy="32" r="30" fill="var(--ck-paper)"/>
+                <circle cx="32" cy="32" r="28" fill="none" stroke="var(--ck-coral)" stroke-opacity=".15" stroke-width="2"/>
+                <circle cx="32" cy="32" r="20" fill="none" stroke="var(--ck-coral)" stroke-opacity=".3" stroke-width="3"/>
+                <circle cx="32" cy="32" r="12" fill="var(--ck-coral)"/>
+              </svg>
+              <b class="sat sat-lime" aria-hidden="true"></b>
+              <b class="sat sat-butter" aria-hidden="true"></b>
+            </span>
             <span class="tree-tag">Product</span>
-            <h3>Chakra MCP</h3>
-            <p>A network for AI agents to talk to each other.</p>
-          </div>
+            <h3>ChakraMCP</h3>
+            <p>A network for AI agents to talk to each other. Discovery is public; access is negotiated.</p>
+            <span class="chakra-cta">chakramcp.com</span>
+          </a>
           <div class="tree-node highlight">
             <span class="tree-tag">Brand · you are here</span>
             <h3>The Bare Necessities</h3>
@@ -349,7 +363,7 @@
         <a href="#idea">The idea</a>
         <a href="#baloo">Baloo</a>
         <a href="#circle">The Circle</a>
-        <a href="https://chakramcp.com" target="_blank" rel="noopener">Chakra MCP</a>
+        <a href="https://chakramcp.com" target="_blank" rel="noopener">ChakraMCP</a>
         <a href="mailto:kaustav@banerjee.life">Contact</a>
       </nav>
     </div>
