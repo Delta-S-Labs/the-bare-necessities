@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# local editor / harness config
+.claude/
+
+# local-only backup of the uncropped hero art
+public/.hero-bg-uncropped.jpg
