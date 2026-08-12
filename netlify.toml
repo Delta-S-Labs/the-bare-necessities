@@ -1,8 +1,14 @@
 # The Bare Necessities — static site, no build step.
 # Netlify serves index.html straight from the repo root.
+#
+# NOTE: a non-empty `command` here is deliberate — it overrides any build
+# command left in the Netlify UI (this site previously ran the Baloo app's
+# Vite build, which fails here since there's no npm project). This no-op
+# succeeds and produces nothing to build.
 [build]
+  base = ""
   publish = "."
-  command = ""
+  command = "echo 'Static site — nothing to build.'"
 
 # Long cache for static art/assets (filenames are stable).
 [[headers]]
