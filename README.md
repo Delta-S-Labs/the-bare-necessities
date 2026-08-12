@@ -1,6 +1,6 @@
 # The Bare Necessities — portfolio site
 
-A static, single-page portfolio for **The Bare Necessities**, a Delta Labs brand
+A static, single-page portfolio for **The Bare Necessities**, a Delta S Labs brand
 that builds small, specialized apps (a "cocktail bar, not a chain"). Its first
 app is **Baloo**, an AI food concierge.
 

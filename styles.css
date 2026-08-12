@@ -229,7 +229,44 @@ p{ margin:0 0 1.1rem; color: var(--ink-soft); }
 .hero-title .line{ display:block; }
 .hero-title .accent{ color: #dcecd3; }
 .hero-title em{ font-style: italic; color: #f2c14e; }
-.hero .eyebrow{ color: #f0c34a; }
+/* hero eyebrow → a little glassy digital badge that pops in */
+.hero .eyebrow{
+  display:inline-flex; align-items:center; gap:.6em;
+  margin:0 0 1.5rem; padding:.5em .95em .5em .82em;
+  border-radius:999px; font-size:.7rem; letter-spacing:.16em; line-height:1;
+  color:#f4cf6a; position:relative; overflow:hidden;
+  background: linear-gradient(rgba(22,52,37,.55), rgba(9,22,15,.6));
+  border:1px solid rgba(240,195,74,.4);
+  backdrop-filter: blur(10px) saturate(1.3);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  box-shadow:
+    0 6px 22px rgba(0,0,0,.3),
+    0 0 0 4px rgba(240,195,74,.06),
+    inset 0 1px 0 rgba(255,255,255,.14);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+.hero .eyebrow::before{   /* live status dot */
+  content:""; flex:none; width:7px; height:7px; border-radius:50%;
+  background:#f0c34a; animation: badgePulse 2.2s ease-out infinite;
+}
+.hero .eyebrow::after{    /* sheen sweep */
+  content:""; position:absolute; top:0; bottom:0; left:-45%; width:32%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
+  transform: skewX(-18deg); animation: badgeSheen 6s ease-in-out 1.4s infinite;
+}
+.hero .eyebrow:hover{
+  transform: translateY(-2px); border-color: rgba(240,195,74,.62);
+  box-shadow: 0 10px 28px rgba(0,0,0,.34), 0 0 0 4px rgba(240,195,74,.11), inset 0 1px 0 rgba(255,255,255,.18);
+}
+@keyframes badgePulse{
+  0%{ box-shadow:0 0 0 0 rgba(240,180,41,.6); }
+  70%{ box-shadow:0 0 0 7px rgba(240,180,41,0); }
+  100%{ box-shadow:0 0 0 0 rgba(240,180,41,0); }
+}
+@keyframes badgeSheen{ 0%{ left:-45%; } 16%,100%{ left:135%; } }
+/* pop-in entrance — overrides the generic reveal transform with a little bounce */
+.hero .eyebrow.reveal{ transform: translateY(12px) scale(.84); transition: opacity .5s var(--ease), transform .6s cubic-bezier(.2,1.5,.3,1); }
+.hero .eyebrow.reveal.in{ transform:none; }
 .hero-lede{
   font-size: clamp(1.02rem, 1.5vw, 1.18rem); line-height:1.5;
   max-width: 500px; color: rgba(246,243,233,.92); margin:0 0 1.8rem;
@@ -557,4 +594,5 @@ p{ margin:0 0 1.1rem; color: var(--ink-soft); }
 @media (prefers-reduced-motion: reduce){
   .reveal{ opacity:1; transform:none; transition:none; }
   .firefly, .cap-fill{ animation:none; transition:none; }
+  .hero .eyebrow::before, .hero .eyebrow::after{ animation:none; }
 }
