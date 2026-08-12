@@ -1,0 +1,17 @@
+# The Bare Necessities — static site, no build step.
+# Netlify serves index.html straight from the repo root.
+[build]
+  publish = "."
+  command = ""
+
+# Long cache for static art/assets (filenames are stable).
+[[headers]]
+  for = "/public/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Always revalidate the HTML so updates show up immediately.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
