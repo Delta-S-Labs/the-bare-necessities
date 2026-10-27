@@ -1,0 +1,19 @@
+{
+  "name": "shonku-waitlist",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Invite waitlist backend for Shonku — The Bare Necessities.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
+}

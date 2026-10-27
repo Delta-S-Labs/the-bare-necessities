@@ -1,8 +1,8 @@
 # The Bare Necessities — static site (no real build).
 #
-# This Netlify site was previously the Baloo app and still forces a `dist`
-# publish directory at deploy time. Rather than fight that, the "build" below
-# just copies the static files into dist/ so the deploy always finds it.
+# The Netlify site forces a `dist` publish directory at deploy time. Rather
+# than fight that, the "build" below just copies the static files into dist/
+# so the deploy always finds it.
 [build]
   base = ""
   publish = "dist"

@@ -1,0 +1,45 @@
+# Render blueprint for the Shonku invite waitlist.
+#
+# This provisions TWO things:
+#   1. a Postgres database (data lives here — separate from the web container,
+#      so it SURVIVES restarts, redeploys and scale-to-zero), and
+#   2. a Node web service that serves the API and writes to that database.
+#
+# Deploy: push this repo to GitHub, then in Render → "New +" → "Blueprint",
+# pick this repo. Render reads render.yaml and creates both. After it's up,
+# set ALLOWED_ORIGINS (below) to your site's URL, and copy the service URL
+# into the site (see server/README.md → "Wire the site").
+#
+# NOTE on "free": Render's free Postgres is deleted after ~30 days unless you
+# upgrade it to a paid instance. For an always-free database that persists
+# indefinitely, create the DB on Neon or Supabase instead and paste its
+# connection string into DATABASE_URL (and remove the `databases:` block and
+# the `fromDatabase` wiring below). The server code is identical either way.
+
+databases:
+  - name: shonku-waitlist-db
+    plan: free
+    databaseName: shonku
+    user: shonku
+
+services:
+  - type: web
+    name: shonku-waitlist
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shonku-waitlist-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "false"            # internal connection string needs no SSL
+      - key: ADMIN_TOKEN
+        generateValue: true       # Render generates a secret; read it in the dashboard
+      - key: ALLOWED_ORIGINS
+        sync: false               # set to e.g. https://thebarenecessities.app after first deploy

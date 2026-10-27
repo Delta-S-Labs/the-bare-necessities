@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="270" height="270" viewBox="0 0 270 270">
+  <style>
+    .s{ fill:none; stroke:#ffffff; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; opacity:.5; }
+    .d{ fill:#ffffff; opacity:.5; }
+  </style>
+  <!-- heart -->
+  <g transform="translate(34,40)"><path class="s" d="M8 7c-2.6-3.2-8.2-1.6-8.2 2.3 0 3.4 5.2 6.6 8.2 8.5 3-1.9 8.2-5.1 8.2-8.5 0-3.9-5.6-5.5-8.2-2.3z"/></g>
+  <!-- star -->
+  <g transform="translate(140,30)"><path class="s" d="M9 0l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L9 13.8 3.4 17.1l1.4-6.3L0 6.5l6.4-.6z"/></g>
+  <!-- smiley -->
+  <g transform="translate(222,54)"><circle class="s" cx="9" cy="9" r="9"/><circle class="d" cx="6" cy="7.4" r="1.1"/><circle class="d" cx="12" cy="7.4" r="1.1"/><path class="s" d="M4.8 11.4c1.4 1.9 7 1.9 8.4 0"/></g>
+  <!-- paper plane -->
+  <g transform="translate(54,120)"><path class="s" d="M0 8 22 0 14 20 9 13z"/><path class="s" d="M9 13 22 0"/></g>
+  <!-- music notes -->
+  <g transform="translate(192,124)"><path class="s" d="M4 20V4l12-3v13"/><circle class="s" cx="4" cy="20" r="3"/><circle class="s" cx="16" cy="17" r="3"/></g>
+  <!-- cat -->
+  <g transform="translate(30,200)"><path class="s" d="M3 4 8 10M23 4 18 10"/><circle class="s" cx="13" cy="13" r="9"/><circle class="d" cx="10" cy="12.5" r="1.1"/><circle class="d" cx="16" cy="12.5" r="1.1"/><path class="s" d="M13 15v1.6M3 14l-3-1M3 17l-3 1.4M23 14l3-1M23 17l3 1.4"/></g>
+  <!-- gift -->
+  <g transform="translate(132,198)"><rect class="s" x="0" y="7" width="22" height="15" rx="1.4"/><path class="s" d="M0 13h22M11 7v15"/><path class="s" d="M11 7C8 7 5.5 3 8.5 2s3.5 5 2.5 5M11 7c3 0 5.5-4 2.5-5s-3.5 5-2.5 5"/></g>
+  <!-- balloon -->
+  <g transform="translate(224,190)"><ellipse class="s" cx="9" cy="9" rx="8" ry="10"/><path class="s" d="M9 19v3.5M9 22.5l-2 3M9 22.5l2 3"/></g>
+  <!-- sparkle -->
+  <g transform="translate(112,92)"><path class="s" d="M5 0v11M-.5 5.5h11M1.3 1.8 8.7 9.2M8.7 1.8 1.3 9.2"/></g>
+</svg>

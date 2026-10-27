@@ -2,348 +2,534 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Bare Necessities — small, specialized apps that know you</title>
-  <meta name="description" content="The Bare Necessities builds specialized, personal apps for a capped circle of people — not products for the mass. A cocktail bar, not a chain. Meet Baloo, our AI concierge." />
-  <meta name="theme-color" content="#0f2b1e" />
-  <link rel="icon" type="image/png" href="public/logo.png" />
-  <link rel="apple-touch-icon" href="public/icon-512.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The Bare Necessities: a cocktail bar, not a chain · Now pouring Shonku</title>
+  <meta name="description" content="The Bare Necessities, a Delta S Labs brand, builds small, specialized apps for a few hundred people at a time: a cocktail bar, not a chain. Our first is Shonku, an invite-only personal agent you reach on Telegram." />
+  <meta name="theme-color" content="#241310" />
+  <link rel="icon" type="image/png" sizes="256x256" href="public/logo.png" />
 
-  <!-- Social -->
-  <meta property="og:title" content="The Bare Necessities" />
-  <meta property="og:description" content="Small, specialized apps built close to the people who use them. Meet Baloo, our AI food concierge." />
+  <meta property="og:title" content="The Bare Necessities: a cocktail bar, not a chain" />
+  <meta property="og:description" content="Small, specialized apps, made for someone and not everyone. Now pouring: Shonku, a personal agent on Telegram." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="public/art/orrery.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet" />
-  <!-- ChakraMCP brand fonts, used only on the ChakraMCP hierarchy card -->
-  <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;600&family=Archivo+Expanded:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Instrument+Sans:wght@400;500;600&family=Archivo:wdth,wght@125,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <!-- ───────────────────────── NAV ───────────────────────── -->
-  <header class="nav" id="top">
-    <a class="brand" href="#top" aria-label="The Bare Necessities — home">
-      <span class="brand-mark" aria-hidden="true">
-        <img src="public/logo.png" alt="" />
-      </span>
-      <span class="brand-text">The&nbsp;Bare&nbsp;Necessities</span>
-    </a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#idea">The idea</a>
-      <a href="#baloo">Baloo</a>
-      <a href="#circle">The Circle</a>
-      <a href="#house">The house</a>
-    </nav>
-    <a href="#contact" class="btn btn-pill nav-cta">Get in touch</a>
+  <!-- ───────────────────────── NAV: floating glass, shrinks on scroll ───────────────────────── -->
+  <header class="nav on-dark" id="nav">
+    <div class="nav-bar">
+      <a class="brand" href="#top" aria-label="The Bare Necessities, back to top">
+        <img class="brand-mark" src="public/logo.png" width="30" height="30" alt="" />
+        <span class="brand-text">The Bare Necessities</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#idea">The idea</a>
+        <a href="#guests">The guest list</a>
+        <a href="#shonku">Shonku</a>
+        <a href="#house">The house</a>
+      </nav>
+      <a href="#seat" class="btn nav-cta">Join the waitlist</a>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <main>
-    <!-- ───────────────────────── HERO ───────────────────────── -->
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow reveal">A Delta&nbsp;S&nbsp;Labs brand · est. in the AI era</p>
-        <h1 class="hero-title reveal">
-          We don't build for
-          <span class="line">everyone.</span>
-          <span class="line accent">We build for <em>someone.</em></span>
-        </h1>
-        <p class="hero-lede reveal">
-          Most software is a fast-food chain — one menu, a billion mouths, nobody
-          remembered by name. We're the cocktail bar next door. Small apps, made
-          for a few hundred people at a time, tuned to them, changed on their word.
-        </p>
-        <div class="hero-actions reveal">
-          <a href="#baloo" class="btn btn-solid">Meet Baloo <span aria-hidden="true">→</span></a>
-          <a href="#idea" class="btn btn-ghost">Why so small?</a>
-        </div>
-        <ul class="hero-meta reveal" aria-label="At a glance">
-          <li><strong>1</strong> app live &nbsp;·&nbsp; more brewing</li>
-          <li><strong>Capped</strong> membership, on purpose</li>
-          <li><strong>You</strong> set the roadmap</li>
-        </ul>
-      </div>
+  <div class="menu" id="menu" hidden>
+    <nav aria-label="Menu">
+      <a href="#idea">The idea</a>
+      <a href="#guests">The guest list</a>
+      <a href="#shonku">Shonku</a>
+      <a href="#ask">Ask it</a>
+      <a href="#house">The house</a>
+      <a href="#seat" class="btn btn-lg">Join the waitlist</a>
+    </nav>
+  </div>
 
-      <!-- floating leaf motif -->
-      <div class="hero-canopy" aria-hidden="true">
-        <span class="firefly f1"></span><span class="firefly f2"></span>
-        <span class="firefly f3"></span><span class="firefly f4"></span>
-        <span class="firefly f5"></span>
+  <main id="main">
+    <!-- ───────────────────────── HERO: the brand ───────────────────────── -->
+    <section class="hero" id="top">
+      <img class="hero-img" src="public/art/orrery.jpg" width="1920" height="1611" fetchpriority="high"
+           alt="An 18th-century candlelit scene: a small group gathered close around a brass orrery while a philosopher explains it." />
+      <div class="hero-inner">
+        <h1 class="display">A cocktail bar,<br>not a chain.</h1>
+        <p class="hero-lead">
+          The Bare Necessities makes small, specialized apps for a few hundred
+          people at a time, tuned to them and changed on their word. Most software
+          is a fast-food chain. We're the bar next door.
+        </p>
+        <div class="actions">
+          <a href="#shonku" class="btn btn-lg">Meet Shonku, our first</a>
+          <a href="#idea" class="btn btn-glass btn-lg">Why so small?</a>
+        </div>
+        <ul class="hero-facts">
+          <li><b>1 app live</b><span>more brewing</span></li>
+          <li><b>Capped</b><span>membership, on purpose</span></li>
+          <li><b>You</b><span>set the roadmap</span></li>
+        </ul>
+        <p class="hero-cap">A philosopher lecturing on the orrery, after Joseph Wright, 1768.</p>
       </div>
     </section>
 
-    <!-- marquee -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Specialized&nbsp;·</span><span>Personal&nbsp;·</span><span>Capped&nbsp;·</span>
-        <span>Yours&nbsp;·</span><span>Specialized&nbsp;·</span><span>Personal&nbsp;·</span>
-        <span>Capped&nbsp;·</span><span>Yours&nbsp;·</span><span>Specialized&nbsp;·</span>
-        <span>Personal&nbsp;·</span><span>Capped&nbsp;·</span><span>Yours&nbsp;·</span>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Specialized</span><span>Personal</span><span>Capped</span><span>Yours</span>
+        <span>Specialized</span><span>Personal</span><span>Capped</span><span>Yours</span>
       </div>
     </div>
 
     <!-- ───────────────────────── THE IDEA ───────────────────────── -->
     <section class="idea section" id="idea">
-      <div class="section-head">
-        <span class="index">01</span>
-        <h2 class="section-title">A cocktail bar,<br><span class="muted-title">not a chain.</span></h2>
-      </div>
-
-      <div class="idea-grid">
+      <div class="idea-top">
+        <h2 class="title reveal">Built for someone,<br>not everyone.</h2>
         <div class="idea-copy reveal">
-          <p class="big-para">
-            A McDonald's serves millions and knows none of them. That's fine — for
+          <p class="lead">
+            A McDonald's serves millions and knows none of them. Fine, for
             McDonald's. But it means every dish is designed for the average
             person, who doesn't actually exist.
           </p>
           <p>
-            We do the opposite. Each app we launch is a small, deliberate room.
-            We work closely with the people inside it. They ask for things. They
-            give feedback, raise feature requests — and we actually ship them.
-            When the room fills, we don't cram in more tables. We open another bar.
+            We do the opposite. Each app we open is a small, deliberate room. We
+            work closely with the people inside it; they ask for things, and we
+            actually ship them. When the room fills, we don't cram in more tables.
+            We open another bar.
           </p>
           <p>
-            The AI era is what makes this finally possible: for the first time,
-            you can genuinely serve a specialized request for a power user at
-            software scale. So we do.
+            The AI era is what makes this possible: for the first time, a
+            specialized request from one regular can be served at software scale.
+            So we serve it.
           </p>
         </div>
-
-        <div class="compare reveal">
-          <div class="compare-card them">
-            <span class="compare-tag">The chain</span>
-            <ul>
-              <li>Built for a billion strangers</li>
-              <li>One menu, take it or leave it</li>
-              <li>Feedback disappears into a void</li>
-              <li>You are a row in a table</li>
-            </ul>
-          </div>
-          <div class="compare-card us">
-            <span class="compare-tag">The bar</span>
-            <ul>
-              <li>Built for a few hundred regulars</li>
-              <li>Tuned to how <em>you</em> actually live</li>
-              <li>Your request becomes next week's build</li>
-              <li>The bartender knows your order</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ───────────────────────── BALOO ───────────────────────── -->
-    <section class="baloo section" id="baloo">
-      <div class="section-head">
-        <span class="index">02</span>
-        <h2 class="section-title">Meet <span class="serif-accent">Baloo</span></h2>
-        <p class="section-kicker">
-          The first bar we opened. An AI concierge for the everyday hunger —
-          food, groceries, a table for two — named for the bear who taught the
-          jungle to look for the bare necessities.
-        </p>
       </div>
 
-      <div class="baloo-stage">
-        <!-- phones -->
-        <div class="phones reveal">
-          <figure class="phone phone-back">
-            <img src="public/screens/06-plans.png" alt="Baloo Plans screen — a calorie ring and recurring auto-order schedules" loading="lazy" />
-          </figure>
-          <figure class="phone phone-front">
-            <img src="public/screens/01-conversation.png" alt="Chatting with Baloo — an evening check-in and a suggested light, high-protein dinner" loading="lazy" />
-          </figure>
-          <figure class="phone phone-side">
-            <img src="public/screens/04-dineout-booking.png" alt="Baloo holding a Saturday table booking at Soi 7" loading="lazy" />
-          </figure>
-        </div>
-
-        <!-- narrative -->
-        <div class="baloo-copy reveal">
-          <p class="big-para">
-            You talk to Baloo like a person who has your back. “Order dinner —
-            something light, I had a heavy lunch.” It knows your diet, your
-            budget, your weekly calorie cap, and it just… handles it.
-          </p>
-          <ul class="do-list">
-            <li>
-              <span class="do-k">Orders food</span>
-              <span class="do-v">Reads the room and picks something that fits your day — placed and paid, over Swiggy.</span>
-            </li>
-            <li>
-              <span class="do-k">Restocks the kitchen</span>
-              <span class="do-v">Groceries topped up on Instamart before you notice you're out.</span>
-            </li>
-            <li>
-              <span class="do-k">Books the table</span>
-              <span class="do-v">“Book us a table for Saturday too” — held, confirmed, done.</span>
-            </li>
-            <li>
-              <span class="do-k">Runs your week</span>
-              <span class="do-v">Recurring plans — weekday lunches, Tue/Thu dinners, a Sunday restock — on a schedule you can flip on and off.</span>
-            </li>
+      <div class="versus stagger">
+        <article class="vs vs-chain">
+          <h3>The chain</h3>
+          <ul>
+            <li>Built for a billion strangers</li>
+            <li>One menu, take it or leave it</li>
+            <li>Feedback disappears into a void</li>
+            <li>You are a row in a table</li>
           </ul>
-        </div>
+        </article>
+        <article class="vs vs-bar">
+          <h3>The bar</h3>
+          <ul>
+            <li>Built for a few hundred regulars</li>
+            <li>Tuned to how you actually live</li>
+            <li>Your request becomes next week's build</li>
+            <li>The bartender knows your order</li>
+          </ul>
+        </article>
       </div>
-
-      <!-- feature ribbon of smaller shots -->
-      <div class="ribbon reveal">
-        <figure class="ribbon-shot">
-          <img src="public/screens/02-food-order.png" alt="A placed food order from The Bowl Co. with a live order-placed status" loading="lazy" />
-          <figcaption>Order, placed &amp; tracked</figcaption>
-        </figure>
-        <figure class="ribbon-shot">
-          <img src="public/screens/03-instamart-order.png" alt="An Instamart grocery restock basket in Baloo" loading="lazy" />
-          <figcaption>Groceries, restocked</figcaption>
-        </figure>
-        <figure class="ribbon-shot">
-          <img src="public/screens/05-weekly-plan.png" alt="Baloo's auto-planned week of lunches, dinners and a dineout" loading="lazy" />
-          <figcaption>A week, pre-planned</figcaption>
-        </figure>
-        <figure class="ribbon-shot">
-          <img src="public/screens/07-you.png" alt="Baloo profile — subscription, dietary details, and what Baloo remembers" loading="lazy" />
-          <figcaption>Remembers you</figcaption>
-        </figure>
-      </div>
-
-      <p class="tiny-note">Screens show a seeded demo account — no real orders were placed.</p>
     </section>
 
-    <!-- ───────────────────────── CAP / SCALING ───────────────────────── -->
-    <section class="cap section" id="cap">
-      <div class="cap-inner">
-        <div class="cap-copy reveal">
-          <span class="index index-inline">03</span>
-          <h2 class="section-title">We put a cap<br>on the guest list.</h2>
-          <p class="big-para">
-            Growth, for us, isn't a bigger crowd — it's a better one. Each app
+    <!-- ───────────────────────── THE GUEST LIST ───────────────────────── -->
+    <section class="guests section-field" id="guests">
+      <div class="guests-inner">
+        <div class="guests-copy reveal">
+          <h2 class="title">We put a cap<br>on the guest list.</h2>
+          <p>
+            Growth, for us, isn't a bigger crowd. It's a better one. Each app
             opens to a small number of members and grows slowly, in deliberate
-            steps. When we reach the cap, the doors don't burst open. A seat frees
-            up only when someone leaves.
+            steps. At the cap the doors don't burst open; a seat frees up only
+            when someone leaves.
           </p>
           <p>
-            If the room is full, you join the queue — and take a seat the moment
-            one opens. Fewer people, served properly, beats everyone served the same.
+            If the room is full, you join the queue and take a seat the moment one
+            opens. Fewer people, served properly, beats everyone served the same.
           </p>
         </div>
-
-        <div class="cap-viz reveal" aria-hidden="true">
-          <div class="cap-meter">
-            <div class="cap-fill" style="--fill: 82%"></div>
-            <div class="cap-seats"></div>
+        <figure class="steps reveal" aria-label="Membership opens in steps of a thousand, up to a cap of five thousand, and then a waitlist.">
+          <div class="steps-chart">
+            <span style="--h:20%"><i>1k</i></span>
+            <span style="--h:40%"><i>2k</i></span>
+            <span style="--h:60%"><i>3k</i></span>
+            <span style="--h:80%"><i>4k</i></span>
+            <span class="cap" style="--h:100%"><i>5k cap</i></span>
+            <span class="queue"><b></b><b></b><b></b><b></b><b></b><b></b><i>the queue</i></span>
           </div>
-          <div class="cap-steps">
-            <span class="on">1k</span><span class="on">2k</span><span class="on">3k</span>
-            <span>4k</span><span>5k</span><span class="cap-flag">cap</span>
-          </div>
-          <p class="cap-caption">Open in small steps → then a waitlist, not a stampede.</p>
-        </div>
+          <figcaption>Open in small steps, then a waitlist, not a stampede.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- ───────────────────────── CIRCLE / CHAKRA ───────────────────────── -->
-    <section class="circle section" id="circle">
-      <div class="section-head">
-        <span class="index">04</span>
-        <h2 class="section-title">Next: your agent,<br>talking to theirs.</h2>
-        <p class="section-kicker">
-          Every Baloo member has an agent that knows their tastes, their diet,
-          their part of town. Soon those agents will talk to each other.
-        </p>
-      </div>
-
-      <div class="circle-body">
-        <div class="circle-diagram reveal" aria-hidden="true">
-          <div class="node node-you"><span>You</span></div>
-          <div class="node node-a"><span>Priya</span></div>
-          <div class="node node-b"><span>Rohan</span></div>
-          <div class="hub"><span>Chakra</span></div>
-          <svg class="wires" viewBox="0 0 320 320" preserveAspectRatio="none">
-            <path d="M160 160 L160 44" /><path d="M160 160 L54 250" /><path d="M160 160 L266 250" />
+    <!-- ───────────────────────── NOW POURING: SHONKU ───────────────────────── -->
+    <section class="shonku section" id="shonku">
+      <div class="shonku-top">
+        <figure class="prof reveal">
+          <svg class="prof-rings" viewBox="0 0 600 600" aria-hidden="true">
+            <circle class="ring" cx="300" cy="300" r="286"/>
+            <circle class="ring dash" cx="300" cy="300" r="236"/>
+            <ellipse class="ring ring-b" cx="300" cy="300" rx="292" ry="92" transform="rotate(-18 300 300)"/>
+            <ellipse class="ring" cx="300" cy="300" rx="262" ry="70" transform="rotate(24 300 300)"/>
+            <g class="orbit orbit-1"><circle class="planet" cx="586" cy="300" r="9"/></g>
+            <g class="orbit orbit-2"><circle class="planet planet-red" cx="300" cy="64" r="7"/></g>
+            <g class="orbit orbit-3"><circle class="planet planet-ink" cx="64" cy="300" r="5"/></g>
           </svg>
-        </div>
+          <img src="public/art/shonku-portrait.svg?v=2" width="400" height="480"
+               alt="A line-drawn portrait of Professor Shonku: bald, round brass spectacles, a full moustache and a high collar, inside the rings of an orrery." />
+        </figure>
 
-        <div class="circle-copy reveal">
-          <p class="big-para">
-            Add a couple of friends to your Circle and say: “find us somewhere for
-            dinner.” Your agents compare notes — everyone's preferences, dietary
-            lines, locations — and land on the one place that actually works for
-            all of you. No group chat, no seventeen “idk, you pick.”
+        <div class="shonku-copy reveal">
+          <h2 class="display-2">Now pouring:<br>Shonku.</h2>
+          <p class="lead">
+            Our first bar. A personal agent you reach on Telegram, named after
+            Satyajit Ray's Professor Shonku: curious, capable, kind and a little
+            dry. It remembers you, runs its own browser, keeps secrets sealed, and
+            writes to you first when something needs doing.
           </p>
-          <p>
-            It runs on <a href="https://chakramcp.com" class="ilink" target="_blank" rel="noopener">ChakraMCP</a> —
-            our own network that lets AI agents talk to one another. Baloo is the
-            first app to plug in; it won't be the last.
-          </p>
-          <p class="soon">Rolling out to members — the Circle tab is already in the app.</p>
+          <ul class="tags">
+            <li class="live">Live now</li>
+            <li>On Telegram</li>
+            <li>By invitation</li>
+          </ul>
+          <div class="actions">
+            <a href="#ask" class="btn btn-lg">Try it, right here</a>
+            <a href="#seat" class="btn btn-ghost btn-lg">Join the waitlist</a>
+          </div>
+        </div>
+      </div>
+
+      <ul class="bento stagger" aria-label="What Shonku comes with">
+        <li class="b-tg">
+          <svg class="b-art" viewBox="6 -6 48 48" aria-hidden="true"><path d="M5 23 43 7 36 41 24 31 18 39 17 28 36 14 15 26z"/></svg>
+          <h3>Telegram, nothing to install</h3>
+          <p>Write to it like a friend. No new app, no dashboard to learn.</p>
+        </li>
+        <li class="b-browser">
+          <svg class="b-art" viewBox="6 -6 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="4"/><path d="M5 17h38M11 13h.01M15 13h.01"/></svg>
+          <h3>Its own browser</h3>
+          <p>Books, compares and fills forms on real sites, behind your login.</p>
+        </li>
+        <li class="b-computer">
+          <svg class="b-art" viewBox="6 -6 48 48" aria-hidden="true"><rect x="7" y="9" width="34" height="23" rx="3"/><path d="M17 39h14M24 32v7M14 18l5 4-5 4M22 26h8"/></svg>
+          <h3>Its own computer</h3>
+          <p>A machine of its own for the long tasks, while you get on with your day.</p>
+        </li>
+        <li class="b-vault">
+          <svg class="b-art" viewBox="6 -6 48 48" aria-hidden="true"><rect x="10" y="21" width="28" height="20" rx="4"/><path d="M16 21v-6a8 8 0 0 1 16 0v6M24 29v5"/></svg>
+          <h3>A sealed vault</h3>
+          <p>Passwords, codes and cards go straight to the page. The model never sees them.</p>
+        </li>
+        <li class="b-gmail">
+          <svg class="b-art" viewBox="6 -6 48 48" aria-hidden="true"><rect x="6" y="11" width="36" height="26" rx="3"/><path d="m7 13 17 13 17-13"/></svg>
+          <h3>Gmail &amp; Calendar</h3>
+          <p>Native connectors, read-only by default. It asks before it sends.</p>
+        </li>
+        <li class="b-chakra">
+          <svg class="b-art" viewBox="6 -6 48 48" aria-hidden="true"><circle cx="24" cy="24" r="5"/><circle cx="9" cy="12" r="3.5"/><circle cx="39" cy="12" r="3.5"/><circle cx="24" cy="41" r="3.5"/><path d="M12 14l8 7M36 14l-8 7M24 29v8.5"/></svg>
+          <h3>Other agents, via ChakraMCP</h3>
+          <p>Compares notes with your friends' agents, with access you grant.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ───────────────────────── WHAT IT DOES ───────────────────────── -->
+    <section class="does section-field" id="does">
+      <div class="does-inner">
+        <h2 class="does-head title">What Shonku<br>does for you</h2>
+        <div class="does-list stagger">
+
+          <article class="cap">
+            <h3>It remembers you</h3>
+            <div class="cap-body cap-left">
+              <div class="tg tg-mini" data-ui>
+                <div class="tg-row in"><p class="bubble">You mentioned Ma's knee has been bad. Shall I set a reminder to call the clinic on Monday?</p></div>
+                <div class="tg-row out"><p class="bubble">yes please</p></div>
+                <div class="tg-row in"><p class="bubble">Done. Monday, 10:00. Consider it handled.</p></div>
+              </div>
+              <ul>
+                <li>Learns the people, places and habits in your life</li>
+                <li>Uses what it knows without being told twice</li>
+                <li>Forgets on request; send <span class="cmd">/forget</span></li>
+                <li>Never keeps passwords, cards or ID numbers</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="cap">
+            <h3>It wakes you with a briefing</h3>
+            <div class="cap-body cap-right">
+              <div class="tg tg-mini" data-ui>
+                <p class="tg-day"><span>Today · 7:30</span></p>
+                <div class="tg-row in"><p class="bubble">Good morning. It's Tuesday.<br><br>• <b>9:30</b> Standup<br>• <b>13:00</b> Lunch with Anil (Soi 7)<br>• One email needs you: Priya, about the lease<br><br>Leave by 12:40 for lunch; traffic's heavy.</p></div>
+              </div>
+              <ul>
+                <li>One short message every morning, at a time you set</li>
+                <li>Calendar, the email that needs you, reminders due</li>
+                <li>What's coming later in the week</li>
+                <li>Set it with <span class="cmd">/briefing 7:30</span>, or just ask</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="cap">
+            <h3>It reads your inbox and calendar</h3>
+            <div class="cap-body cap-left">
+              <div class="tg tg-mini" data-ui>
+                <div class="tg-row out"><p class="bubble">anything in my inbox i actually need to see?</p></div>
+                <div class="tg-row in"><p class="bubble">Two things, really:<br><br>• Priya wants the signed lease by Thursday<br>• Your card statement is due Fri<br><br>The rest is newsletters. Want me to draft a line to Priya you can paste?</p></div>
+              </div>
+              <ul>
+                <li>Connect Google; Shonku reads Gmail and Calendar, read-only</li>
+                <li>Finds the reply you owe and the deadline you forgot</li>
+                <li>Never sends mail or changes an event on its own</li>
+                <li>Link or unlink with <span class="cmd">/connect</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="cap">
+            <h3>It speaks, when you speak</h3>
+            <div class="cap-body cap-right">
+              <div class="tg tg-mini" data-ui>
+                <div class="tg-row out"><p class="bubble voice"><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span> 0:04</p></div>
+                <div class="tg-row in"><p class="bubble voice"><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span> 0:03</p></div>
+                <div class="tg-row in"><p class="bubble">(and the written version, so you have it)</p></div>
+              </div>
+              <ul>
+                <li>Send a voice note; hear back in a calm, older voice</li>
+                <li>Transcribes what you say, in your own language</li>
+                <li>Reacts and replies to a particular message</li>
+                <li>Anything private, it types. It never speaks aloud</li>
+              </ul>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <!-- ───────────────────────── THE HOUSE / HIERARCHY ───────────────────────── -->
-    <section class="house section" id="house">
-      <div class="section-head">
-        <span class="index">05</span>
-        <h2 class="section-title">The house it<br>all lives in.</h2>
-        <p class="section-kicker">
-          The Bare Necessities is a brand, not the whole company. Here's how it
-          fits together.
-        </p>
-      </div>
-
-      <div class="tree reveal">
-        <div class="tree-node root">
-          <span class="tree-tag">Company</span>
-          <h3>Delta S Labs</h3>
-          <p>The house. The legal entity everything registers under.</p>
+    <!-- ───────────────────────── ASK IT: the live Telegram demo ───────────────────────── -->
+    <section class="ask section" id="ask">
+      <div class="ask-grid">
+        <div class="ask-intro reveal">
+          <h2 class="title">Ask. It handles it.</h2>
+          <p class="ask-note">
+            A real exchange, in the plain, dry manner of the Professor. Tap a
+            message and watch him reply, the way he would on Telegram.
+          </p>
+          <dl class="ask-facts">
+            <div><dt>Replies</dt><dd>in seconds, in his own voice</dd></div>
+            <div><dt>Acts</dt><dd>only after you say yes</dd></div>
+            <div><dt>Writes first</dt><dd>when something needs you</dd></div>
+          </dl>
         </div>
-        <div class="tree-branch">
-          <a class="tree-node chakra-card" href="https://chakramcp.com" target="_blank" rel="noopener"
-             aria-label="ChakraMCP — a network for AI agents. Opens chakramcp.com in a new tab.">
-            <span class="chakra-mark" aria-hidden="true">
-              <svg viewBox="0 0 64 64" width="42" height="42">
-                <circle cx="32" cy="32" r="30" fill="var(--ck-paper)"/>
-                <circle cx="32" cy="32" r="28" fill="none" stroke="var(--ck-coral)" stroke-opacity=".15" stroke-width="2"/>
-                <circle cx="32" cy="32" r="20" fill="none" stroke="var(--ck-coral)" stroke-opacity=".3" stroke-width="3"/>
-                <circle cx="32" cy="32" r="12" fill="var(--ck-coral)"/>
-              </svg>
-              <b class="sat sat-lime" aria-hidden="true"></b>
-              <b class="sat sat-butter" aria-hidden="true"></b>
-            </span>
-            <span class="tree-tag">Product</span>
-            <h3>ChakraMCP</h3>
-            <p>A network for AI agents to talk to each other. Discovery is public; access is negotiated.</p>
-            <span class="chakra-cta">chakramcp.com</span>
-          </a>
-          <div class="tree-node highlight">
-            <span class="tree-tag">Brand · you are here</span>
-            <h3>The Bare Necessities</h3>
-            <p>Small, specialized apps — each its own little bar.</p>
-            <div class="tree-leaves">
-              <span class="leaf leaf-live">Baloo <em>· live</em></span>
-              <span class="leaf">the next bar</span>
-              <span class="leaf">…</span>
+
+        <div class="ask-stage reveal">
+          <div class="phone" data-ui>
+            <div class="tg tg-app">
+              <div class="tg-status" aria-hidden="true">
+                <span class="tg-time">9:12</span>
+                <span class="tg-sys">
+                  <svg viewBox="0 0 17 12" width="16" height="11" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4" width="3" height="8" rx="1"/><rect x="10" y="1" width="3" height="11" rx="1"/></svg>
+                  <svg viewBox="0 0 18 12" width="17" height="11"><path d="M9 3.2c2.3 0 4.4.9 6 2.4M9 6.6c1.3 0 2.5.5 3.4 1.4M3 5.6c1.6-1.5 3.7-2.4 6-2.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="9.6" r="1.1" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 26 12" width="25" height="11"><rect x="1" y="2" width="21" height="8.5" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="3" y="4" width="14" height="4.5" rx="1" fill="currentColor"/><rect x="23.4" y="4.3" width="1.8" height="4" rx=".9" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <header class="tg-top">
+                <span class="tg-back" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="24" height="24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="tg-avatar"><img src="public/art/shonku-portrait.svg?v=2" alt="" width="400" height="480" /></span>
+                <span class="tg-who"><b>Shonku</b><small>bot</small></span>
+                <span class="tg-actions" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="21" height="21"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg>
+                </span>
+              </header>
+              <div class="tg-thread" id="thread" aria-live="polite">
+                <p class="tg-day"><span>Today</span></p>
+                <div class="tg-row in"><div class="bubble">Order of the day? I've read the calendar; nothing's on fire.<span class="meta"><span class="t">9:12</span></span></div></div>
+              </div>
+              <div class="tg-input" aria-hidden="true">
+                <svg class="ti-ico" viewBox="0 0 24 24" width="23" height="23"><path d="M8.5 12.5l6-6a3 3 0 0 1 4.2 4.2l-7.3 7.3a5 5 0 0 1-7-7l7-7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="ti-field">Message</span>
+                <svg class="ti-ico" viewBox="0 0 24 24" width="23" height="23"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10.4" r="1.1" fill="currentColor"/><circle cx="15" cy="10.4" r="1.1" fill="currentColor"/><path d="M8.4 14.2c1 1.2 2.1 1.8 3.6 1.8s2.6-.6 3.6-1.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <svg class="ti-ico" viewBox="0 0 24 24" width="23" height="23"><rect x="9" y="3" width="6" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </div>
+              <div class="tg-keyboard" id="chips" role="group" aria-label="Try asking Shonku">
+                <button type="button" class="chip" data-q="order">What's on today?</button>
+                <button type="button" class="chip" data-q="remind">Remind me to call Ma at 6</button>
+                <button type="button" class="chip" data-q="email">Any email I need to see?</button>
+                <button type="button" class="chip" data-q="book">Book me a table Saturday</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ───────────────────────── CONTACT ───────────────────────── -->
-    <section class="contact section" id="contact">
-      <div class="contact-inner reveal">
-        <p class="eyebrow">Come in</p>
-        <h2 class="contact-title">Want a seat,<br>or building something like this?</h2>
-        <p class="contact-lede">
-          Feedback, feature requests, a spot on the Baloo waitlist, or just a
-          hello — it all reaches me directly.
+    <!-- ───────────────────────── THE VAULT ───────────────────────── -->
+    <section class="vault section" id="vault">
+      <div class="vault-head reveal">
+        <h2 class="title">A vault for the things<br>you can't hand over.</h2>
+        <p class="vault-note">
+          Shonku does real tasks in a real browser: booking, comparing, filling
+          forms behind your login. When a task reaches a password, a one-time code
+          or a card, the secret goes straight into the page through a sealed form.
+          Shonku's mind never sees it.
         </p>
-        <div class="contact-actions">
-          <a class="btn btn-solid btn-lg" href="mailto:kaustav@banerjee.life">kaustav@banerjee.life</a>
-          <a class="btn btn-ghost btn-lg" href="https://banerjee.life" target="_blank" rel="noopener">The owner's site →</a>
+      </div>
+
+      <ol class="bar stagger" aria-label="How a task runs">
+        <li class="seg seg-ask" style="--grow:1">
+          <span class="seg-dur">A sentence</span>
+          <span class="seg-say">You ask: “book my 6pm cab.”</span>
+        </li>
+        <li class="seg seg-run" style="--grow:5">
+          <span class="seg-dur">A few minutes</span>
+          <span class="seg-say">It works in its own browser. Opens the app, picks the ride, fills the details.</span>
+        </li>
+        <li class="seg seg-lock" style="--grow:2.4">
+          <span class="seg-dur">The locked step</span>
+          <span class="seg-say">It needs your password or an OTP. A sealed form takes it. The model never sees it.</span>
+        </li>
+        <li class="seg seg-done" style="--grow:1">
+          <span class="seg-dur">Done</span>
+          <span class="seg-say">Confirmed, and it tells you.</span>
+        </li>
+      </ol>
+
+      <div class="vault-foot reveal">
+        <div class="tg tg-mini seal" data-ui>
+          <p class="seal-title">Sealed form · goes straight to the page</p>
+          <label class="seal-field">Password
+            <span class="seal-input"><span class="dots">••••••••••</span><svg class="seal-lock" aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="5" y="10" width="14" height="10" rx="2" fill="currentColor"/></svg></span>
+          </label>
+          <p class="seal-foot">Shonku never receives this. <span class="cmd">/sites</span> shows and forgets what's saved.</p>
+        </div>
+        <p class="vault-aside">
+          Passwords, one-time codes, card and ID numbers are held apart from the
+          agent entirely. It can use a door without being handed the key, and it
+          asks before it ever buys, sends, posts or deletes.
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── THE NETWORK ───────────────────────── -->
+    <section class="network section-field" id="network">
+      <figure class="network-map">
+        <img src="public/art/world-map.jpg" width="1920" height="1657" loading="lazy"
+             alt="A 1689 double-hemisphere engraved map of the world, in two circles." />
+      </figure>
+      <div class="network-copy reveal">
+        <h2 class="title">Your agent,<br>talking to theirs.</h2>
+        <div>
+          <p>
+            Shonku runs on <strong>ChakraMCP</strong>, our own network where AI
+            agents discover one another and negotiate what they'll do together.
+            Add a couple of friends and say “find us somewhere for dinner.” Your
+            agents compare notes (tastes, dietary lines, neighbourhoods) and land
+            on the one place that works for all of you. No group chat, no
+            seventeen “idk, you pick.”
+          </p>
+          <p class="network-soon">Discovery is public. Access is yours to grant.</p>
+          <p><a class="goto" href="https://chakramcp.com" target="_blank" rel="noopener">chakramcp.com ↗</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── WHAT IT'S MADE OF ───────────────────────── -->
+    <section class="made section" id="made">
+      <h2 class="made-head reveal">What Shonku<br>is made of</h2>
+      <ul class="made-col reveal">
+        <li class="kind">Under the hood</li>
+        <li>Telegram</li>
+        <li>Claude Opus&nbsp;5.5</li>
+        <li>Durable on Temporal</li>
+        <li>Postgres, row-secured</li>
+        <li>Google Workspace, read-only</li>
+        <li>Sarvam voice, both ways</li>
+      </ul>
+      <ul class="made-col reveal">
+        <li class="kind">What it won't do</li>
+        <li>Send without asking</li>
+        <li>Store a password</li>
+        <li>See another person's chat</li>
+        <li>Obey a web page or an email</li>
+        <li>Sell or share your data</li>
+      </ul>
+    </section>
+
+    <!-- ───────────────────────── THE HOUSE ───────────────────────── -->
+    <section class="house section" id="house">
+      <div class="house-head reveal">
+        <h2 class="title">The house it<br>all lives in.</h2>
+        <p class="house-note">The Bare Necessities is a brand, not the whole company. Here's how it fits together.</p>
+      </div>
+      <div class="tree stagger">
+        <div class="node node-co">
+          <h3>Delta&nbsp;S&nbsp;Labs</h3>
+          <p>The company: the house everything registers under.</p>
+        </div>
+        <div class="tree-row">
+          <a class="node node-chakra" href="https://chakramcp.com" target="_blank" rel="noopener"
+             aria-label="ChakraMCP, a network for AI agents. Opens chakramcp.com in a new tab.">
+            <h3>ChakraMCP</h3>
+            <p>A network for AI agents to talk to each other. Discovery is public; access is negotiated.</p>
+            <span class="chakra-cta">chakramcp.com</span>
+          </a>
+          <div class="node node-bn">
+            <h3>The Bare Necessities</h3>
+            <p>Small, specialized apps, each its own little bar. You are here.</p>
+            <ul class="bars">
+              <li class="live">Shonku · live</li>
+              <li class="next">the next bar, brewing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── A SEAT: the waitlist ───────────────────────── -->
+    <section class="seat" id="seat">
+      <div class="seat-strip" aria-hidden="true">
+        <img src="public/art/cetus.jpg" width="1177" height="893" loading="lazy" alt="" />
+        <img src="public/art/celestial-pavo.jpg" width="1920" height="1440" loading="lazy" alt="" />
+        <img src="public/art/astrolabe.jpg" width="1642" height="2250" loading="lazy" alt="" />
+      </div>
+      <div class="seat-band">
+        <div class="seat-band-grid">
+          <div class="seat-copy">
+            <h2 class="seat-title">Pull up a stool.</h2>
+            <p class="seat-sub">Shonku is invite-only. Members get ten invitations each; the keeper
+               holds the rest. Join the waiting list and the Professor writes the
+               moment a seat opens.</p>
+            <form class="waitlist" id="waitlist" novalidate data-api="">
+              <div class="wl-fields">
+                <label class="wl-field">
+                  <span class="wl-label">Your email</span>
+                  <input type="email" name="email" id="wl-email" required
+                         autocomplete="email" placeholder="you@example.com" />
+                </label>
+                <label class="wl-field">
+                  <span class="wl-label">Name <i>(optional)</i></span>
+                  <input type="text" name="name" id="wl-name" maxlength="80"
+                         autocomplete="name" placeholder="What shall he call you?" />
+                </label>
+              </div>
+              <input type="text" name="company" class="wl-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <div class="wl-actions">
+                <button type="submit" class="btn btn-lg wl-submit">Request an invite</button>
+                <span class="wl-fallback">or <a href="mailto:kaustav@banerjee.life?subject=A%20seat%20for%20Shonku">write to the keeper</a></span>
+              </div>
+              <p class="wl-msg" id="wl-msg" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <figure class="seat-prof">
+            <img src="public/art/shonku-portrait-light.svg?v=2" width="400" height="480" loading="lazy"
+                 alt="A line-drawn portrait of Professor Shonku." />
+            <figcaption>Professor Shonku, keeper of the list.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -351,27 +537,48 @@
 
   <!-- ───────────────────────── FOOTER ───────────────────────── -->
   <footer class="footer">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <span class="brand-mark small" aria-hidden="true">
-          <img src="public/logo.png" alt="" />
-        </span>
-        <p>The Bare Necessities</p>
-        <span class="footer-tagline">A cocktail bar, not a chain. Pull up a stool.</span>
-      </div>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="#idea">The idea</a>
-        <a href="#baloo">Baloo</a>
-        <a href="#circle">The Circle</a>
-        <a href="https://chakramcp.com" target="_blank" rel="noopener">ChakraMCP</a>
-        <a href="mailto:kaustav@banerjee.life">Contact</a>
-      </nav>
+    <div class="footer-cols">
+      <ul class="fcol">
+        <li class="fhead">The Bare Necessities</li>
+        <li>A Delta&nbsp;S&nbsp;Labs brand</li>
+        <li>A cocktail bar, not a chain</li>
+        <li>Pull up a stool</li>
+      </ul>
+      <ul class="fcol">
+        <li class="fhead">The bar</li>
+        <li><a href="#idea">The idea</a></li>
+        <li><a href="#guests">The guest list</a></li>
+        <li><a href="#house">The house</a></li>
+        <li><a href="#seat">Join the waitlist</a></li>
+      </ul>
+      <ul class="fcol">
+        <li class="fhead">Shonku</li>
+        <li><a href="#does">What it does</a></li>
+        <li><a href="#ask">Ask it</a></li>
+        <li><a href="#vault">The vault</a></li>
+        <li><a href="#network">The network</a></li>
+      </ul>
+      <ul class="fcol">
+        <li class="fhead">Elsewhere</li>
+        <li><a href="https://chakramcp.com" target="_blank" rel="noopener">ChakraMCP ↗</a></li>
+        <li><a href="https://banerjee.life" target="_blank" rel="noopener">banerjee.life ↗</a></li>
+        <li><a href="mailto:kaustav@banerjee.life">kaustav@banerjee.life</a></li>
+      </ul>
     </div>
-    <div class="footer-bottom">
-      <span>© <span id="year">2026</span> The Bare Necessities — a Delta&nbsp;S&nbsp;Labs company. All rights reserved.</span>
-      <span>Made close to the people who use it.</span>
-    </div>
-    <div class="footer-watermark" aria-hidden="true">the&nbsp;bare&nbsp;necessities</div>
+
+    <p class="credits">Pictures, all public domain via their archives:
+      <a href="https://commons.wikimedia.org/wiki/File:A_Philosopher_Giving_a_Lecture_on_the_Orrery_-_DPLA_-_845fe5699eb38da75dacaa804d69acf0.jpg">“A Philosopher Giving a Lecture on the Orrery”</a> (W. Pether after Joseph Wright);
+      <a href="https://commons.wikimedia.org/wiki/File:Johan_Doppelmayr%27s_celestial_chart_of_Pavo_and_Indus.jpg">Doppelmayr's chart of Pavo and Indus</a>;
+      <a href="https://commons.wikimedia.org/wiki/File:Uranometria_%E2%80%94_fol._34_v,_Cetus_%E2%80%94_1603.jpg">Bayer's <em>Uranometria</em>, Cetus</a>;
+      <a href="https://www.artic.edu/artworks/90589">a Qajar astrolabe</a> (Art Institute of Chicago);
+      <a href="https://commons.wikimedia.org/wiki/File:World_Map_1689.JPG">van Schagen's World Map, 1689</a>.
+      The portrait of the Professor is an original line drawing made for this site; Professor&nbsp;Shonku is a character created by Satyajit&nbsp;Ray.
+    </p>
+
+    <svg class="footer-mark" viewBox="0 0 100 11" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <text x="50" y="9.1" text-anchor="middle" textLength="99" lengthAdjust="spacingAndGlyphs">The Bare Necessities</text>
+    </svg>
+    <p class="legal">© <span id="year">2026</span> The Bare Necessities, a Delta&nbsp;S&nbsp;Labs company. Made close to the people who use it.</p>
   </footer>
 
   <script src="script.js" defer></script>
