@@ -50,5 +50,5 @@ services:
         value: "false"            # internal connection string needs no SSL
       - key: ADMIN_TOKEN
         generateValue: true       # Render generates a secret; read it in the dashboard
-      - key: ALLOWED_ORIGINS
-        value: https://the-bare-necessities.netlify.app
+      - key: ALLOWED_ORIGINS   # every address the site is served from
+        value: https://thebarenecessities.in,https://www.thebarenecessities.in,https://the-bare-necessities.netlify.app
