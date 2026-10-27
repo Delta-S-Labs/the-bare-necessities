@@ -16,9 +16,15 @@
 # connection string into DATABASE_URL (and remove the `databases:` block and
 # the `fromDatabase` wiring below). The server code is identical either way.
 
+# Live today (created with the Render CLI to match this file):
+#   service  shonku-waitlist     https://shonku-waitlist.onrender.com
+#   database shonku-waitlist-db  (free plan; Render deletes it on 2026-11-26
+#                                 unless it is upgraded before then)
+
 databases:
   - name: shonku-waitlist-db
     plan: free
+    region: singapore
     databaseName: shonku
     user: shonku
 
@@ -27,11 +33,14 @@ services:
     name: shonku-waitlist
     runtime: node
     plan: free
+    region: singapore
     rootDir: server
-    buildCommand: npm install
+    buildCommand: npm ci
     startCommand: npm start
     healthCheckPath: /health
     autoDeploy: true
+    buildFilter:
+      paths: ["server/**"]   # site-only changes don't redeploy the API
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -42,4 +51,4 @@ services:
       - key: ADMIN_TOKEN
         generateValue: true       # Render generates a secret; read it in the dashboard
       - key: ALLOWED_ORIGINS
-        sync: false               # set to e.g. https://thebarenecessities.app after first deploy
+        value: https://the-bare-necessities.netlify.app
