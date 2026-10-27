@@ -138,8 +138,11 @@ app.post('/api/waitlist', async (req, res) => {
   if (rateLimited(ip)) return res.status(429).json({ error: 'Too many requests.' });
 
   const body = req.body || {};
-  // Honeypot: real people leave it empty; bots fill it. Pretend success.
-  if (typeof body.company === 'string' && body.company.trim() !== '') {
+  // Honeypot: real people leave it empty; bots fill it. Pretend success, but
+  // log it, so a real person caught by it shows up in the logs. (It used to be
+  // named "company", which phone autofill filled in for real visitors.)
+  if (typeof body.nb_trap === 'string' && body.nb_trap.trim() !== '') {
+    console.warn('[waitlist] honeypot filled; not saved');
     return res.json({ ok: true, already: false });
   }
 

@@ -157,7 +157,8 @@ if (wlForm){
     const endpoint = (wlForm.dataset.api || '').replace(/\/+$/, '') + '/api/waitlist';
     const email   = wlForm.elements['email'].value.trim();
     const name    = wlForm.elements['name'].value.trim();
-    const company = wlForm.elements['company'].value; // honeypot; bots fill it
+    // honeypot; bots fill it. Not called "company": phone autofill fills that.
+    const trap    = wlForm.elements['nb_trap'].value;
 
     if (!EMAIL.test(email)){
       wlMsg.textContent = 'A valid email, please.';
@@ -172,7 +173,7 @@ if (wlForm){
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, company })
+        body: JSON.stringify({ email, name, nb_trap: trap })
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok){
