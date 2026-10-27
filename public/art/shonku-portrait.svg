@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img"
+     aria-label="A line-drawn portrait of an elderly bespectacled professor-inventor with a long, full white beard.">
+  <defs>
+    <style>
+      .ink   { fill:none; stroke:#241310; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+      .thin  { fill:none; stroke:#241310; stroke-width:1.6; stroke-linecap:round; }
+      .hair  { fill:none; stroke:#241310; stroke-width:1.3; stroke-linecap:round; opacity:.7; }
+      .fill  { fill:#241310; }
+      .brass { fill:none; stroke:#c9900f; stroke-width:2.4; }
+    </style>
+  </defs>
+
+  <!-- shoulders / coat, running in behind the beard -->
+  <path class="ink" d="M86,474 C92,420 116,394 144,384"/>
+  <path class="ink" d="M314,474 C308,420 284,394 256,384"/>
+  <path class="thin" d="M144,384 L156,404 M256,384 L244,404"/>
+
+  <!-- head: the high dome only; the beard takes over below the ears -->
+  <path class="ink" d="M128,214 L126,196 C120,132 160,96 200,96 C240,96 280,132 274,196 L272,214"/>
+
+  <!-- ears -->
+  <path class="thin" d="M126,196 C112,192 110,214 124,220 C128,214 126,206 128,202"/>
+  <path class="thin" d="M274,196 C288,192 290,214 276,220 C272,214 274,206 272,202"/>
+
+  <!-- side hair tufts (balding dome, white hair at the sides) -->
+  <path class="thin" d="M130,150 C116,158 114,182 122,196 M136,142 C124,150 122,170 128,182 M140,136 C132,142 130,156 134,166"/>
+  <path class="thin" d="M270,150 C284,158 286,182 278,196 M264,142 C276,150 278,170 272,182 M260,136 C268,142 270,156 266,166"/>
+
+  <!-- brow furrows -->
+  <path class="thin" d="M168,158 C176,152 188,152 196,156 M232,158 C224,152 212,152 204,156"/>
+  <path class="thin" d="M194,138 C198,150 202,150 206,138"/>
+
+  <!-- spectacles -->
+  <circle class="brass" cx="166" cy="190" r="26"/>
+  <circle class="brass" cx="234" cy="190" r="26"/>
+  <path class="brass" d="M192,188 C198,182 202,182 208,188"/>
+  <path class="brass" d="M140,186 C126,182 120,184 116,190"/>
+  <path class="brass" d="M260,186 C274,182 280,184 284,190"/>
+  <!-- eyes -->
+  <circle class="fill" cx="166" cy="192" r="3.4"/>
+  <circle class="fill" cx="234" cy="192" r="3.4"/>
+
+  <!-- nose -->
+  <path class="ink" d="M200,196 C198,212 194,226 190,232 C194,238 206,238 210,232 C206,226 202,212 200,196"/>
+
+  <!-- the beard: a full white beard from the sideburns to mid-chest -->
+  <path class="ink" d="M128,212
+    C121,250 125,290 137,322
+    C129,348 139,372 145,394
+    C141,418 157,438 171,450
+    C180,462 191,471 200,476
+    C209,471 220,462 229,450
+    C243,438 259,418 255,394
+    C261,372 271,348 263,322
+    C275,290 279,250 272,212"/>
+  <!-- where the cheek ends and the beard begins -->
+  <path class="thin" d="M131,216 C139,230 145,240 150,250 M269,216 C261,230 255,240 250,250"/>
+
+  <!-- moustache -->
+  <path class="fill" d="M200,244
+    C182,236 160,236 150,250
+    C158,252 168,252 178,250
+    C186,254 194,254 200,250
+    C206,254 214,254 222,250
+    C232,252 242,252 250,250
+    C240,236 218,236 200,244 Z"/>
+
+  <!-- mouth and lower lip, set in the beard -->
+  <path class="thin" d="M184,260 C194,266 206,266 216,260"/>
+  <path class="thin" d="M191,269 C197,273 203,273 209,269"/>
+
+  <!-- strands -->
+  <path class="hair" d="M140,236 C137,262 141,286 151,304 M260,236 C263,262 259,286 249,304"/>
+  <path class="hair" d="M150,262 C146,292 150,318 160,340 M250,262 C254,292 250,318 240,340"/>
+  <path class="hair" d="M160,282 C155,320 160,360 171,398 M240,282 C245,320 240,360 229,398"/>
+  <path class="hair" d="M174,280 C170,326 174,374 184,426 M226,280 C230,326 226,374 216,426"/>
+  <path class="hair" d="M188,280 C186,336 189,396 195,452 M212,280 C214,336 211,396 205,452"/>
+  <path class="hair" d="M200,284 C201,340 200,400 200,462"/>
+  <path class="hair" d="M147,336 C147,358 152,378 160,396 M253,336 C253,358 248,378 240,396"/>
+  <path class="hair" d="M156,404 C162,420 170,434 180,444 M244,404 C238,420 230,434 220,444"/>
+  <path class="hair" d="M134,262 C132,282 135,300 142,316 M266,262 C268,282 265,300 258,316"/>
+  <!-- a few curls at the tip -->
+  <path class="hair" d="M186,452 C191,462 196,469 200,474 M214,452 C209,462 204,469 200,474"/>
+</svg>
