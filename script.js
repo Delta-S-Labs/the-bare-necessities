@@ -7,14 +7,19 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // glass nav: shrinks once you scroll, turns dark-glass over the hero photograph
 const nav  = document.getElementById('nav');
 const hero = document.querySelector('.hero');
-const onScroll = () => {
+// the hero's height is measured on resize only, and class changes wait for a frame
+let heroH = 0, ticking = false;
+const measure = () => { heroH = hero ? hero.offsetHeight : 0; };
+const update = () => {
+  ticking = false;
   const y = window.scrollY;
   nav.classList.toggle('scrolled', y > 40);
-  nav.classList.toggle('on-dark', !!hero && y < hero.offsetHeight - 72);
+  nav.classList.toggle('on-dark', !!hero && y < heroH - 72);
 };
-onScroll();
+const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
+measure(); update();
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', onScroll, { passive: true });
+window.addEventListener('resize', () => { measure(); onScroll(); }, { passive: true });
 
 // hero photograph settles slowly, once laid out
 if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('lit')));
@@ -22,24 +27,39 @@ if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList
 // small-screen menu
 const toggle = document.querySelector('.nav-toggle');
 const menu   = document.getElementById('menu');
-function setMenu(open){
+// while it's open, the page behind it can't be reached by Tab or a screen reader
+const behindMenu = () => document.querySelectorAll('body > :not(header):not(#menu):not(script)');
+function setMenu(open, returnFocus){
   toggle.setAttribute('aria-expanded', String(open));
   toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   document.body.classList.toggle('menu-open', open);
   nav.classList.toggle('menu-on', open);
+  behindMenu().forEach((el) => { el.inert = open; });
   if (open){
     menu.hidden = false;
     requestAnimationFrame(() => menu.classList.add('open'));
+    menu.querySelector('a').focus();
   } else {
     menu.classList.remove('open');
     setTimeout(() => { if (toggle.getAttribute('aria-expanded') === 'false') menu.hidden = true; }, 350);
+    if (returnFocus) toggle.focus();
   }
 }
 if (toggle && menu){
-  toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true', true));
   menu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setMenu(false, true); });
   window.matchMedia('(min-width: 921px)').addEventListener('change', (m) => { if (m.matches) setMenu(false); });
+}
+
+// the ticker can be paused
+const ticker = document.querySelector('.ticker');
+const tickerBtn = ticker && ticker.querySelector('.ticker-toggle');
+if (tickerBtn){
+  tickerBtn.addEventListener('click', () => {
+    const paused = ticker.classList.toggle('paused');
+    tickerBtn.setAttribute('aria-pressed', String(paused));
+  });
 }
 
 // scroll reveals (+ staggered groups)
@@ -118,6 +138,13 @@ const wait = (ms) => new Promise(r => setTimeout(r, reduce ? 0 : ms));
 let busy = false;
 async function ask(btn){
   if (busy) return; busy = true;
+  // a disabled button drops keyboard focus, so hand it to the next question first
+  if (btn === document.activeElement){
+    const all = [...chips.querySelectorAll('.chip')];
+    const i = all.indexOf(btn);
+    const next = [...all.slice(i + 1), ...all.slice(0, i)].find(c => !c.disabled);
+    (next || thread).focus();
+  }
   btn.disabled = true;
   thread.appendChild(rowOut(btn.textContent)); toBottom();
   const lines = SCRIPT[btn.dataset.q] || ["One moment."];

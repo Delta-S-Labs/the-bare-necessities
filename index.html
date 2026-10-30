@@ -56,8 +56,12 @@
   <main id="main">
     <!-- ───────────────────────── HERO: the brand ───────────────────────── -->
     <section class="hero" id="top">
-      <img class="hero-img" src="public/art/orrery.jpg" width="1920" height="1611" fetchpriority="high"
-           alt="An 18th-century candlelit scene: a small group gathered close around a brass orrery while a philosopher explains it." />
+      <picture>
+        <source type="image/webp" sizes="(orientation: portrait) 130vh, 100vw"
+                srcset="public/art/orrery-640.webp 640w, public/art/orrery-1280.webp 1280w, public/art/orrery-1920.webp 1920w" />
+        <img class="hero-img" src="public/art/orrery.jpg" width="1920" height="1611" fetchpriority="high"
+             alt="An 18th-century candlelit scene: a small group gathered close around a brass orrery while a philosopher explains it." />
+      </picture>
       <div class="hero-inner">
         <h1 class="display">A cocktail bar,<br>not a chain.</h1>
         <p class="hero-lead">
@@ -78,8 +82,12 @@
       </div>
     </section>
 
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker-track">
+    <div class="ticker">
+      <button class="ticker-toggle" type="button" aria-pressed="false" aria-label="Pause the moving words">
+        <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        <svg class="i-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      </button>
+      <div class="ticker-track" aria-hidden="true">
         <span>Specialized</span><span>Personal</span><span>Capped</span><span>Yours</span>
         <span>Specialized</span><span>Personal</span><span>Capped</span><span>Yours</span>
       </div>
@@ -175,7 +183,7 @@
             <g class="orbit orbit-3"><circle class="planet planet-ink" cx="64" cy="300" r="5"/></g>
           </svg>
           <img src="public/art/shonku-portrait.svg?v=2" width="400" height="480"
-               alt="A line-drawn portrait of Professor Shonku: bald, round brass spectacles, a full moustache and a high collar, inside the rings of an orrery." />
+               alt="A line-drawn portrait of Professor Shonku: bald, round brass spectacles and a long, full beard, inside the rings of an orrery." />
         </figure>
 
         <div class="shonku-copy reveal">
@@ -346,7 +354,7 @@
                   <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg>
                 </span>
               </header>
-              <div class="tg-thread" id="thread" aria-live="polite">
+              <div class="tg-thread" id="thread" aria-live="polite" tabindex="-1">
                 <p class="tg-day"><span>Today</span></p>
                 <div class="tg-row in"><div class="bubble">Order of the day? I've read the calendar; nothing's on fire.<span class="meta"><span class="t">9:12</span></span></div></div>
               </div>
@@ -402,9 +410,9 @@
       <div class="vault-foot reveal">
         <div class="tg tg-mini seal" data-ui>
           <p class="seal-title">Sealed form · goes straight to the page</p>
-          <label class="seal-field">Password
-            <span class="seal-input"><span class="dots">••••••••••</span><svg class="seal-lock" aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="5" y="10" width="14" height="10" rx="2" fill="currentColor"/></svg></span>
-          </label>
+          <div class="seal-field">Password
+            <span class="seal-input"><span class="dots" role="img" aria-label="hidden password">••••••••••</span><svg class="seal-lock" aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="5" y="10" width="14" height="10" rx="2" fill="currentColor"/></svg></span>
+          </div>
           <p class="seal-foot">Shonku never receives this. <span class="cmd">/sites</span> shows and forgets what's saved.</p>
         </div>
         <p class="vault-aside">
@@ -418,8 +426,12 @@
     <!-- ───────────────────────── THE NETWORK ───────────────────────── -->
     <section class="network section-field" id="network">
       <figure class="network-map">
-        <img src="public/art/world-map.jpg" width="1920" height="1657" loading="lazy"
-             alt="A 1689 double-hemisphere engraved map of the world, in two circles." />
+        <picture>
+          <source type="image/webp" sizes="(max-width: 1240px) 100vw, 1200px"
+                  srcset="public/art/world-map-640.webp 640w, public/art/world-map-1280.webp 1280w, public/art/world-map-1920.webp 1920w" />
+          <img src="public/art/world-map.jpg" width="1920" height="1657" loading="lazy"
+               alt="A 1689 double-hemisphere engraved map of the world, in two circles." />
+        </picture>
       </figure>
       <div class="network-copy reveal">
         <h2 class="title">Your agent,<br>talking to theirs.</h2>
@@ -493,9 +505,18 @@
     <!-- ───────────────────────── A SEAT: the waitlist ───────────────────────── -->
     <section class="seat" id="seat">
       <div class="seat-strip" aria-hidden="true">
-        <img src="public/art/cetus.jpg" width="1177" height="893" loading="lazy" alt="" />
-        <img src="public/art/celestial-pavo.jpg" width="1920" height="1440" loading="lazy" alt="" />
-        <img src="public/art/astrolabe.jpg" width="1642" height="2250" loading="lazy" alt="" />
+        <picture>
+          <source type="image/webp" sizes="34vw" srcset="public/art/cetus-640.webp 640w, public/art/cetus-960.webp 960w" />
+          <img src="public/art/cetus.jpg" width="1177" height="893" loading="lazy" alt="" />
+        </picture>
+        <picture>
+          <source type="image/webp" sizes="34vw" srcset="public/art/celestial-pavo-640.webp 640w, public/art/celestial-pavo-960.webp 960w" />
+          <img src="public/art/celestial-pavo.jpg" width="1920" height="1440" loading="lazy" alt="" />
+        </picture>
+        <picture>
+          <source type="image/webp" sizes="34vw" srcset="public/art/astrolabe-640.webp 640w, public/art/astrolabe-960.webp 960w" />
+          <img src="public/art/astrolabe.jpg" width="1642" height="2250" loading="lazy" alt="" />
+        </picture>
       </div>
       <div class="seat-band">
         <div class="seat-band-grid">
