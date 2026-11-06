@@ -21,6 +21,8 @@ server/
 | GET    | `/api/waitlist`              | admin     | JSON of all entries                    |
 | GET    | `/api/waitlist/count`        | admin     | `{ count }`                            |
 | GET    | `/api/waitlist/export.csv`   | admin     | CSV download                           |
+| POST   | `/api/projects`              | public    | Send a project brief `{ email, project, name?, timeline?, budget?, link? }` |
+| GET    | `/api/projects/export.csv`   | admin     | CSV of every project brief             |
 
 Admin routes need the `ADMIN_TOKEN`, sent as `X-Admin-Token:` header or
 `?token=` query. POST is rate-limited (10/min/IP), validated, de-duplicated on

@@ -4,76 +4,133 @@ document.documentElement.classList.add('js');
 // footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// glass nav: shrinks once you scroll, turns dark-glass over the hero photograph
-const nav  = document.getElementById('nav');
-const hero = document.querySelector('.hero');
-// the hero's height is measured on resize only, and class changes wait for a frame
-let heroH = 0, ticking = false;
-const measure = () => { heroH = hero ? hero.offsetHeight : 0; };
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ───────────────────── the bars: top on a laptop, bottom on a phone ───────────────────── */
+const nav = document.getElementById('nav');
+const tabs = [...document.querySelectorAll('#tabbar a')];
+// each section names the tab it belongs to: the features after "Try it" still count as Shonku
+const tabSections = [...document.querySelectorAll('section[data-tab]')];
+let ticking = false;
 const update = () => {
   ticking = false;
-  const y = window.scrollY;
-  nav.classList.toggle('scrolled', y > 40);
-  nav.classList.toggle('on-dark', !!hero && y < heroH - 72);
+  // laptop: the top bar shrinks onto glass once the page moves
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+  // phone: the tab for the section you're in is lit, like a phone app's tab bar
+  const line = window.innerHeight * 0.4;
+  let current = 'top';
+  tabSections.forEach((el) => { if (el.getBoundingClientRect().top <= line) current = el.dataset.tab; });
+  tabs.forEach((a) => {
+    if (a.hash === '#' + current) a.setAttribute('aria-current', 'location');
+    else a.removeAttribute('aria-current');
+  });
 };
 const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
-measure(); update();
+update();
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => { measure(); onScroll(); }, { passive: true });
+window.addEventListener('resize', onScroll, { passive: true });
 
-// hero photograph settles slowly, once laid out
-if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('lit')));
-
-// small-screen menu
-const toggle = document.querySelector('.nav-toggle');
-const menu   = document.getElementById('menu');
-// while it's open, the page behind it can't be reached by Tab or a screen reader
-const behindMenu = () => document.querySelectorAll('body > :not(header):not(#menu):not(script)');
-function setMenu(open, returnFocus){
-  toggle.setAttribute('aria-expanded', String(open));
-  toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  document.body.classList.toggle('menu-open', open);
-  nav.classList.toggle('menu-on', open);
-  behindMenu().forEach((el) => { el.inert = open; });
-  if (open){
-    menu.hidden = false;
-    requestAnimationFrame(() => menu.classList.add('open'));
-    menu.querySelector('a').focus();
-  } else {
-    menu.classList.remove('open');
-    setTimeout(() => { if (toggle.getAttribute('aria-expanded') === 'false') menu.hidden = true; }, 350);
-    if (returnFocus) toggle.focus();
-  }
-}
-if (toggle && menu){
-  toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true', true));
-  menu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setMenu(false, true); });
-  window.matchMedia('(min-width: 921px)').addEventListener('change', (m) => { if (m.matches) setMenu(false); });
-}
-
-// the ticker can be paused
-const ticker = document.querySelector('.ticker');
-const tickerBtn = ticker && ticker.querySelector('.ticker-toggle');
-if (tickerBtn){
-  tickerBtn.addEventListener('click', () => {
-    const paused = ticker.classList.toggle('paused');
-    tickerBtn.setAttribute('aria-pressed', String(paused));
-  });
-}
-
-// scroll reveals (+ staggered groups)
+/* ───────────────────── scroll reveals ───────────────────── */
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
     if (!e.isIntersecting) return;
     e.target.classList.add('in');
     io.unobserve(e.target);
   });
-}, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
-document.querySelectorAll('.reveal, .stagger').forEach((el) => io.observe(el));
+}, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+/* ───────────────────── the Professor, in dots ─────────────────────
+   The line portrait, redrawn as a field of square dots: a lit beard, a dimmer head, dark eyes
+   inside bright spectacles. The dots shimmer, and swell near the pointer. */
+const canvas = document.getElementById('dots');
+if (canvas && canvas.getContext){
+  document.documentElement.classList.add('js-dots');
+  const ctx = canvas.getContext('2d');
+  // shapes in the portrait's own 400 × 480 drawing, with how bright each one is
+  const P = (d) => new Path2D(d);
+  const HEAD  = P('M128,214 L126,196 C120,132 160,96 200,96 C240,96 280,132 274,196 L272,214 Z');
+  const BEARD = P('M128,212 C121,250 125,290 137,322 C129,348 139,372 145,394 C141,418 157,438 171,450 C180,462 191,471 200,476 C209,471 220,462 229,450 C243,438 259,418 255,394 C261,372 271,348 263,322 C275,290 279,250 272,212 Z');
+  const COAT  = P('M70,480 C80,420 112,392 150,382 L250,382 C288,392 320,420 330,480 Z');
+  const EARS  = P('M126,196 C112,192 110,214 124,220 Z M274,196 C288,192 290,214 276,220 Z');
+  const MOUSTACHE = P('M200,244 C182,236 160,236 150,250 C158,252 168,252 178,250 C186,254 194,254 200,250 C206,254 214,254 222,250 C232,252 242,252 250,250 C240,236 218,236 200,244 Z');
+  const STRANDS = ['M150,262 C146,292 150,318 160,340','M250,262 C254,292 250,318 240,340','M160,282 C155,320 160,360 171,398','M240,282 C245,320 240,360 229,398','M174,280 C170,326 174,374 184,426','M226,280 C230,326 226,374 216,426','M188,280 C186,336 189,396 195,452','M212,280 C214,336 211,396 205,452','M200,284 C201,340 200,400 200,462'].map(P);
+
+  // paint the portrait once, small, into an offscreen canvas: its pixels become the dots
+  const COLS = 72, ROWS = Math.round(COLS * 480 / 400);
+  const src = document.createElement('canvas'); src.width = COLS; src.height = ROWS;
+  const s = src.getContext('2d');
+  s.scale(COLS / 400, ROWS / 480);
+  const fill = (path, v) => { s.fillStyle = `rgb(${v},${v},${v})`; s.fill(path); };
+  const line = (path, v, w) => { s.strokeStyle = `rgb(${v},${v},${v})`; s.lineWidth = w; s.lineCap = 'round'; s.stroke(path); };
+  fill(COAT, 46);
+  fill(HEAD, 92); fill(EARS, 80);
+  fill(BEARD, 205);
+  STRANDS.forEach((p) => line(p, 120, 5));
+  fill(MOUSTACHE, 28);
+  line(P('M200,196 C198,212 194,226 190,232 C194,238 206,238 210,232 C206,226 202,212 200,196'), 70, 6); // nose
+  // the lenses catch the light
+  s.fillStyle = 'rgb(140,140,140)'; s.beginPath(); s.arc(166, 190, 24, 0, Math.PI * 2); s.arc(234, 190, 24, 0, Math.PI * 2); s.fill();
+  const SPECS = new Path2D(); SPECS.arc(166, 190, 26, 0, Math.PI * 2); SPECS.moveTo(260, 190); SPECS.arc(234, 190, 26, 0, Math.PI * 2);
+  line(SPECS, 255, 11);
+  line(P('M192,188 C198,182 202,182 208,188'), 255, 8);
+  s.fillStyle = '#000'; s.beginPath(); s.arc(166, 192, 5, 0, Math.PI * 2); s.arc(234, 192, 5, 0, Math.PI * 2); s.fill(); // eyes
+  const px = s.getImageData(0, 0, COLS, ROWS).data;
+  const cells = [];
+  for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++){
+    const i = (y * COLS + x) * 4, a = px[i + 3] / 255;
+    const v = (px[i] / 255) * a;
+    // the empty room around him keeps a faint dust of dots, fading out towards the edges
+    const d = Math.hypot((x - COLS / 2) / (COLS / 2), (y - ROWS * .52) / (ROWS / 2));
+    const dust = Math.max(0, 1 - d) ** 1.6 * 0.06;
+    cells.push({ x, y, v: a > 0.05 ? Math.max(v, 0.08) : dust, inside: a > 0.05, seed: Math.random() * 6.283 });
+  }
+
+  let w = 0, h = 0, cell = 0, dpr = 1, pointer = null, running = false, raf = 0;
+  const size = () => {
+    const r = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = r.width; h = r.height; cell = w / COLS;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  const draw = (t) => {
+    ctx.clearRect(0, 0, w, h);
+    const gap = Math.max(1, cell * 0.16);
+    for (const c of cells){
+      let v = c.v;
+      if (c.inside && !reduce) v *= 0.82 + 0.18 * Math.sin(t / 900 + c.seed);   // the shimmer
+      let grow = 0;
+      if (pointer && !reduce){
+        const dx = (c.x + .5) * cell - pointer.x, dy = (c.y + .5) * cell - pointer.y;
+        const near = Math.max(0, 1 - Math.hypot(dx, dy) / (cell * 9));
+        v = Math.min(1, v + near * (c.inside ? 0.45 : 0.18)); grow = near * gap * 0.9;
+      }
+      if (v < 0.012) continue;
+      const l = Math.round(24 + Math.pow(v, 1.25) * 222);
+      ctx.fillStyle = `rgb(${l},${l - 4},${l - 10})`;
+      const sz = cell - gap + grow;
+      ctx.fillRect(c.x * cell + (cell - sz) / 2, c.y * cell + (cell - sz) / 2, sz, sz);
+    }
+  };
+  const loop = (t) => { draw(t); if (running) raf = requestAnimationFrame(loop); };
+  const start = () => { if (!running && !reduce){ running = true; raf = requestAnimationFrame(loop); } };
+  const stop = () => { running = false; cancelAnimationFrame(raf); };
+
+  size(); draw(0);
+  window.addEventListener('resize', () => { size(); draw(performance.now()); }, { passive: true });
+  // only animate while he's on screen
+  new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop())).observe(canvas);
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('pointermove', (e) => {
+    const r = canvas.getBoundingClientRect();
+    pointer = { x: e.clientX - r.left, y: e.clientY - r.top };
+    if (reduce) draw(0);
+  });
+  hero.addEventListener('pointerleave', () => { pointer = null; if (reduce) draw(0); });
+}
 
 /* ───────────────────── the live conversation ───────────────────── */
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const thread = document.getElementById('thread');
 const chips  = document.getElementById('chips');
 
@@ -170,57 +227,73 @@ if (chips){
   });
 }
 
-/* ───────────────────── the invite waitlist ───────────────────── */
-const wlForm = document.getElementById('waitlist');
-if (wlForm){
-  const wlMsg = document.getElementById('wl-msg');
-  const wlBtn = wlForm.querySelector('.wl-submit');
-  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/* ───────────────────── the two forms: a seat on the waitlist, and a project brief ───────────────────── */
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  wlForm.addEventListener('submit', async (e) => {
+// Sends a form's fields to the backend and says how it went. `check` returns
+// [problem, field] for the first thing that's wrong, or nothing.
+function wire(form, path, check, success){
+  if (!form) return;
+  const msg = form.querySelector('.form-msg');
+  const btn = form.querySelector('button[type=submit]');
+  const say = (text, kind) => { msg.textContent = text; msg.className = 'form-msg ' + kind; };
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    wlMsg.className = 'wl-msg';
-    // read the API base at submit time, so late/host config is honoured
-    const endpoint = (wlForm.dataset.api || '').replace(/\/+$/, '') + '/api/waitlist';
-    const email   = wlForm.elements['email'].value.trim();
-    const name    = wlForm.elements['name'].value.trim();
+    msg.className = 'form-msg';
+    form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+    const data = Object.fromEntries(new FormData(form));
+    for (const k in data) data[k] = String(data[k]).trim();
     // honeypot; bots fill it. Not called "company": phone autofill fills that.
-    const trap    = wlForm.elements['nb_trap'].value;
+    data.nb_trap = form.elements['nb_trap'].value;
 
-    if (!EMAIL.test(email)){
-      wlMsg.textContent = 'A valid email, please.';
-      wlMsg.classList.add('err');
-      wlForm.elements['email'].focus();
+    const problem = check(data);
+    if (problem){
+      const [text, field] = problem;
+      say(text, 'err');
+      form.elements[field].setAttribute('aria-invalid', 'true');
+      form.elements[field].focus();
       return;
     }
 
-    const label = wlBtn.textContent;
-    wlBtn.disabled = true; wlBtn.textContent = 'Sending…';
+    // read the API base at submit time, so late/host config is honoured
+    const endpoint = (form.dataset.api || '').replace(/\/+$/, '') + path;
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending…';
     try{
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, nb_trap: trap })
+        body: JSON.stringify(data)
       });
-      const data = await res.json().catch(() => ({}));
+      const out = await res.json().catch(() => ({}));
       if (res.ok){
-        wlForm.reset();
-        wlMsg.textContent = data.already
-          ? "You're already on the list — the Professor has you noted."
-          : "You're on the list. Shonku will write the moment a seat opens.";
-        wlMsg.classList.add('ok');
+        form.reset();
+        say(success(out), 'ok');
       } else if (res.status === 429){
-        wlMsg.textContent = 'One moment — too many tries. Please wait a little.';
-        wlMsg.classList.add('err');
+        say('One moment — too many tries. Please wait a little.', 'err');
       } else {
-        wlMsg.textContent = (data && data.error) || 'Something went wrong. Please use the email link below.';
-        wlMsg.classList.add('err');
+        say((out && out.error) || 'Something went wrong. Please use the email link instead.', 'err');
       }
     } catch(err){
-      wlMsg.textContent = 'Could not reach the waitlist. Please use the email link below.';
-      wlMsg.classList.add('err');
+      say('Could not reach us just now. Please use the email link instead.', 'err');
     } finally {
-      wlBtn.disabled = false; wlBtn.textContent = label;
+      btn.disabled = false; btn.textContent = label;
     }
   });
 }
+
+wire(document.getElementById('waitlist'), '/api/waitlist',
+  (d) => (!EMAIL.test(d.email) ? ['A valid email, please.', 'email'] : null),
+  (out) => out.already
+    ? "You're already on the list — the Professor has you noted."
+    : "You're on the list. Shonku will write the moment a seat opens.");
+
+wire(document.getElementById('project'), '/api/projects',
+  (d) => {
+    if (!EMAIL.test(d.email)) return ['A valid email, please, so we can reply.', 'email'];
+    if (d.project.length < 10) return ['Tell us a little about it: a sentence or two is plenty.', 'project'];
+    if (d.link && !/^https?:\/\/\S+\.\S+/.test(d.link)) return ['That link should start with https://', 'link'];
+    return null;
+  },
+  () => "Thank you. Your brief is with us, and we'll reply by email.");

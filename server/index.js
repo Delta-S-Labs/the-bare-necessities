@@ -1,6 +1,7 @@
-// Shonku — invite waitlist backend.
+// Shonku — invite waitlist and project enquiries backend.
 //
-// A tiny, dependency-light Express service. It stores waitlist sign-ups in
+// A tiny, dependency-light Express service. It stores waitlist sign-ups, and
+// the projects people ask the studio to build, in
 // Postgres (Render Postgres, Neon, Supabase — anything with a DATABASE_URL),
 // which lives OUTSIDE the web container, so the data survives restarts,
 // redeploys and scale-to-zero. With no DATABASE_URL set it falls back to an
@@ -18,7 +19,13 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* ───────────────────────── storage ───────────────────────── */
-let store; // { add(entry) -> {already}, list() -> [...], count() -> n }
+let store; // { add(entry) -> {already}, list() -> [...], count() -> n,
+           //   addProject(entry), listProjects() -> [...] }
+
+// The columns a project enquiry is exported with, in order.
+const PROJECT_FIELDS = ['email', 'name', 'project', 'timeline', 'budget', 'link', 'created_at'];
+const TIMELINES = ['As soon as possible', 'In the next few months', 'Just exploring'];
+const BUDGETS = ['Under ₹1 lakh', '₹1–5 lakh', '₹5–20 lakh', 'Over ₹20 lakh', 'Not sure yet'];
 
 async function makePgStore(url) {
   const useSsl = /sslmode=require/i.test(url) || process.env.DATABASE_SSL === 'true';
@@ -32,6 +39,19 @@ async function makePgStore(url) {
       id          BIGSERIAL PRIMARY KEY,
       email       TEXT NOT NULL UNIQUE,
       name        TEXT,
+      source      TEXT,
+      user_agent  TEXT,
+      ip          TEXT,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+    CREATE TABLE IF NOT EXISTS projects (
+      id          BIGSERIAL PRIMARY KEY,
+      email       TEXT NOT NULL,
+      name        TEXT,
+      project     TEXT NOT NULL,
+      timeline    TEXT,
+      budget      TEXT,
+      link        TEXT,
       source      TEXT,
       user_agent  TEXT,
       ip          TEXT,
@@ -59,6 +79,19 @@ async function makePgStore(url) {
       const res = await pool.query(`SELECT COUNT(*)::int AS n FROM waitlist`);
       return res.rows[0].n;
     },
+    async addProject(e) {
+      await pool.query(
+        `INSERT INTO projects (email, name, project, timeline, budget, link, source, user_agent, ip)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [e.email, e.name, e.project, e.timeline, e.budget, e.link, e.source, e.user_agent, e.ip]
+      );
+    },
+    async listProjects() {
+      const res = await pool.query(
+        `SELECT ${PROJECT_FIELDS.join(', ')} FROM projects ORDER BY created_at DESC`
+      );
+      return res.rows;
+    },
   };
 }
 
@@ -68,6 +101,7 @@ function makeMemoryStore() {
     'Data will NOT persist across restarts. Set DATABASE_URL for production.'
   );
   const byEmail = new Map();
+  const projects = [];
   return {
     async add(e) {
       if (byEmail.has(e.email)) return { already: true };
@@ -80,6 +114,10 @@ function makeMemoryStore() {
         .sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
     },
     async count() { return byEmail.size; },
+    async addProject(e) { projects.push({ ...e, created_at: new Date().toISOString() }); },
+    async listProjects() {
+      return projects.map((p) => Object.fromEntries(PROJECT_FIELDS.map((k) => [k, p[k] ?? null]))).reverse();
+    },
   };
 }
 
@@ -105,7 +143,7 @@ setInterval(() => {
 /* ───────────────────────── app ───────────────────────── */
 const app = express();
 app.set('trust proxy', true);
-app.use(express.json({ limit: '8kb' }));
+app.use(express.json({ limit: '16kb' }));
 
 function cors(req, res) {
   const origin = req.headers.origin;
@@ -167,7 +205,55 @@ app.post('/api/waitlist', async (req, res) => {
   }
 });
 
+// Ask the studio to build something.
+app.post('/api/projects', async (req, res) => {
+  const ip = clientIp(req);
+  if (rateLimited(ip)) return res.status(429).json({ error: 'Too many requests.' });
+
+  const body = req.body || {};
+  // the same honeypot as the waitlist
+  if (typeof body.nb_trap === 'string' && body.nb_trap.trim() !== '') {
+    console.warn('[projects] honeypot filled; not saved');
+    return res.json({ ok: true });
+  }
+
+  const email = String(body.email || '').trim().toLowerCase();
+  const name = String(body.name || '').trim().slice(0, 120);
+  const project = String(body.project || '').trim();
+  const link = String(body.link || '').trim().slice(0, 300);
+  // only the choices the form offers are kept; anything else is dropped
+  const timeline = TIMELINES.includes(body.timeline) ? body.timeline : null;
+  const budget = BUDGETS.includes(body.budget) ? body.budget : null;
+  if (!EMAIL_RE.test(email) || email.length > 254) {
+    return res.status(400).json({ error: 'A valid email is required.' });
+  }
+  if (project.length < 10) {
+    return res.status(400).json({ error: 'Tell us a little about the project (a sentence or two).' });
+  }
+  if (project.length > 4000) {
+    return res.status(400).json({ error: 'That is longer than 4,000 characters. A shorter version, please.' });
+  }
+
+  try {
+    await store.addProject({
+      email, project, timeline, budget,
+      name: name || null,
+      link: link || null,
+      source: String(body.source || 'website').slice(0, 60),
+      user_agent: String(req.headers['user-agent'] || '').slice(0, 300),
+      ip,
+    });
+    console.log('[projects] enquiry saved');
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('[projects] add failed:', err);
+    return res.status(500).json({ error: 'Could not save. Please try again.' });
+  }
+});
+
 // Admin: read the list / a count / a CSV. Guarded by ADMIN_TOKEN.
+const esc = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+
 function requireAdmin(req, res) {
   if (!ADMIN_TOKEN) { res.status(503).json({ error: 'Admin not configured.' }); return false; }
   const token = req.headers['x-admin-token'] || req.query.token || '';
@@ -196,7 +282,6 @@ app.get('/api/waitlist/export.csv', async (req, res) => {
   if (!requireAdmin(req, res)) return;
   try {
     const rows = await store.list();
-    const esc = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
     const csv = ['email,name,created_at',
       ...rows.map((r) => [r.email, r.name, r.created_at].map(esc).join(','))].join('\n');
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
@@ -204,6 +289,22 @@ app.get('/api/waitlist/export.csv', async (req, res) => {
     res.send(csv);
   } catch (err) {
     console.error('[waitlist] export failed:', err);
+    res.status(500).json({ error: 'Could not export.' });
+  }
+});
+
+app.get('/api/projects/export.csv', async (req, res) => {
+  if (!requireAdmin(req, res)) return;
+  try {
+    const rows = await store.listProjects();
+    const csv = [PROJECT_FIELDS.join(','),
+      ...rows.map((r) => PROJECT_FIELDS.map((k) =>
+        esc(r[k] instanceof Date ? r[k].toISOString() : r[k])).join(','))].join('\n');
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', 'attachment; filename="projects.csv"');
+    res.send(csv);
+  } catch (err) {
+    console.error('[projects] export failed:', err);
     res.status(500).json({ error: 'Could not export.' });
   }
 });
