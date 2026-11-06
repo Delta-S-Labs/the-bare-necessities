@@ -28,6 +28,16 @@ Admin routes need the `ADMIN_TOKEN`, sent as `X-Admin-Token:` header or
 `?token=` query. POST is rate-limited (10/min/IP), validated, de-duplicated on
 email, and has a honeypot (`company`) field for bots.
 
+## Back up new rows straight away (optional)
+
+The backup repo's workflow runs every hour, but GitHub often runs scheduled
+jobs hours late. Set `BACKUP_DISPATCH_TOKEN` and the server asks GitHub to run
+the backup about 20 seconds after a new sign-up or brief is saved (saves close
+together share one run). The token is a fine-grained GitHub token with access
+to the backup repo only and one permission, **Actions: Read and write**. If
+GitHub can't be reached the server only logs it; the row is already in the
+database and the hourly run still picks it up.
+
 ## Deploy on Render (blueprint)
 
 1. Push this repo to GitHub.

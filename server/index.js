@@ -16,6 +16,17 @@ const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '';
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
+// Starting the GitHub backup as soon as something is saved. GitHub runs the
+// hourly schedule hours late on busy days, so a new row could wait that long
+// to reach the backup repo. With BACKUP_DISPATCH_TOKEN set (a fine-grained
+// token with Actions: read and write on the backup repo, nothing else), a
+// save asks GitHub to run the backup now. Without it, nothing changes.
+const BACKUP_DISPATCH_TOKEN = process.env.BACKUP_DISPATCH_TOKEN || '';
+const BACKUP_REPO = process.env.BACKUP_REPO || 'Delta-S-Labs/shonku-waitlist-backup';
+const BACKUP_WORKFLOW = process.env.BACKUP_WORKFLOW || 'backup.yml';
+const GITHUB_API = process.env.GITHUB_API || 'https://api.github.com';
+const BACKUP_DELAY_MS = 20_000; // saves within this window share one run
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* ───────────────────────── storage ───────────────────────── */
@@ -163,6 +174,36 @@ app.use((req, res, next) => {
   next();
 });
 
+// Ask GitHub to run the backup workflow. Saves close together share one run,
+// and a failure here only logs: the row is already safe in the database and
+// the hourly schedule will still pick it up.
+let backupTimer = null;
+function queueBackup(why) {
+  if (!BACKUP_DISPATCH_TOKEN || backupTimer) return;
+  backupTimer = setTimeout(async () => {
+    backupTimer = null;
+    try {
+      const r = await fetch(
+        `${GITHUB_API}/repos/${BACKUP_REPO}/actions/workflows/${BACKUP_WORKFLOW}/dispatches`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${BACKUP_DISPATCH_TOKEN}`,
+            Accept: 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+            'User-Agent': 'shonku-waitlist',
+          },
+          body: JSON.stringify({ ref: 'main' }),
+          signal: AbortSignal.timeout(15_000),
+        });
+      if (r.status === 204) console.log(`[backup] started (${why})`);
+      else console.error(`[backup] GitHub said ${r.status}: ${(await r.text()).slice(0, 200)}`);
+    } catch (err) {
+      console.error('[backup] could not reach GitHub:', err.message);
+    }
+  }, BACKUP_DELAY_MS);
+}
+
 const clientIp = (req) =>
   (req.headers['x-forwarded-for'] || '').toString().split(',')[0].trim() ||
   req.socket.remoteAddress || '';
@@ -198,6 +239,7 @@ app.post('/api/waitlist', async (req, res) => {
       user_agent: String(req.headers['user-agent'] || '').slice(0, 300),
       ip,
     });
+    if (!already) queueBackup('new sign-up');
     return res.json({ ok: true, already });
   } catch (err) {
     console.error('[waitlist] add failed:', err);
@@ -244,6 +286,7 @@ app.post('/api/projects', async (req, res) => {
       ip,
     });
     console.log('[projects] enquiry saved');
+    queueBackup('new enquiry');
     return res.json({ ok: true });
   } catch (err) {
     console.error('[projects] add failed:', err);
