@@ -1,0 +1,13 @@
+/* The Bare Necessities, read by hand from the live site's :root (raea brand got a 500 from the site). */
+:root{
+  --brand-background: #0e0c0b;   /* the room, after dark */
+  --brand-surface: #171412;      /* raised cards */
+  --brand-text: #f2ece1;         /* off-white ink */
+  --brand-color-1: #b5aca0;      /* secondary grey */
+  --brand-color-2: #8f877d;      /* note grey */
+  --brand-color-3: #3a332e;      /* the chart's unlit bars */
+  --brand-accent: #e9b15d;       /* candlelight: live and now, nothing else */
+  --brand-font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+  --brand-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --brand-radius: 22px;
+}

@@ -40,6 +40,28 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
+/* ───────────────────── the loops raea drew ─────────────────────
+   They play only while on screen, and not at all for people who asked for less motion: the poster stays. */
+const loops = document.querySelectorAll('video.loop');
+if (!reduce && 'IntersectionObserver' in window){
+  const vio = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting){
+        // a loop can start where its poster is, so the still and the first moving frame match
+        const v = e.target;
+        if (v.dataset.start && !v.dataset.started){
+          v.dataset.started = '1';
+          const go = () => { v.currentTime = +v.dataset.start; };
+          if (v.readyState >= 1) go(); else v.addEventListener('loadedmetadata', go, { once: true });
+        }
+        v.play().catch(() => {});
+      }
+      else e.target.pause();
+    });
+  }, { threshold: 0.2 });
+  loops.forEach((v) => vio.observe(v));
+}
+
 /* ───────────────────── the Professor, in dots ─────────────────────
    The line portrait, redrawn as a field of square dots: a lit beard, a dimmer head, dark eyes
    inside bright spectacles. The dots shimmer, and swell near the pointer. */

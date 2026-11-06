@@ -1,0 +1,17 @@
+{
+  "palette": { "primary": "#f2ece1", "accent": "#e9b15d", "surface": "#0e0c0b", "text_on_surface": "#f2ece1", "text_on_accent": "#0e0c0b" },
+  "colors": [
+    { "name": "background", "hex": "#0e0c0b", "css": "--brand-background" },
+    { "name": "surface", "hex": "#171412", "css": "--brand-surface" },
+    { "name": "text", "hex": "#f2ece1", "css": "--brand-text" },
+    { "name": "grey", "hex": "#b5aca0", "css": "--brand-color-1" },
+    { "name": "note grey", "hex": "#8f877d", "css": "--brand-color-2" },
+    { "name": "unlit", "hex": "#3a332e", "css": "--brand-color-3" },
+    { "name": "accent", "hex": "#e9b15d", "css": "--brand-accent" }
+  ],
+  "fonts": { "heading": "SF Pro Display / Inter", "body": "SF Pro Text / Inter" },
+  "source": { "by_hand": {
+    "palette": "the :root custom properties of https://thebarenecessities.in/styles.css (--bg, --bg-raised, --text, --text-2, --text-3, --live), read from the repository",
+    "colors.unlit": "the steps chart's bar colour in styles.css"
+  } }
+}

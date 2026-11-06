@@ -1,0 +1,20 @@
+title: The Bare Necessities, site loops
+audience: People who land on thebarenecessities.in, mostly on a phone, deciding whether to ask for a Shonku invite
+believe: A small room, served properly, beats a crowd served the same.
+mode: story
+voice: None: silent loops, no words on screen. Calm, warm and close, like a cocktail bar after dark.
+deliver:
+- hero.mp4: sushi on a bar counter while a cocktail is poured (16:8.4, plays under the site's headline)
+- agents.mp4: friends' agents finding each other and agreeing on one dinner spot (4:3, beside "Your agent, talking to theirs")
+- stools.mp4: a row of bar stools filling one by one up to a cap, then a queue forming (wide strip, above "Pull up a stool")
+- each one loops seamlessly, with a poster frame, and reads with motion switched off
+- storyboard: loops.board
+
+## Tasks
+- [x] loops.board storyboard approved #gate
+
+## Look
+- Ground #0e0c0b (warm near-black), ink #f2ece1 (off-white), greys #b5aca0 and #8f877d, one amber #e9b15d for light that is "live".
+- Flat, graphic, no gradients for their own sake; light comes from one small source.
+- Square dots and simple shapes, in the language of the site's dot-matrix portrait of Shonku.
+- Slow: nothing moves faster than a person settling into a chair.
