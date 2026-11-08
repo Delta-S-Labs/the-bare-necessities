@@ -6,7 +6,7 @@
 [build]
   base = ""
   publish = "dist"
-  command = "rm -rf dist && mkdir dist && cp -r index.html styles.css script.js favicon.svg public dist/"
+  command = "rm -rf dist && mkdir dist && cp -r index.html work.html styles.css script.js favicon.svg public dist/"
 
 # Long cache for static art/assets (filenames are stable).
 [[headers]]
@@ -17,5 +17,10 @@
 # Always revalidate the HTML so updates show up immediately.
 [[headers]]
   for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/work.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"

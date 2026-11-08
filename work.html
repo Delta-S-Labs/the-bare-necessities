@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The work · The Bare Necessities</title>
+  <meta name="description" content="What The Bare Necessities has built: Shonku, an invite-only personal agent on Telegram, and the website, QR table ordering and staff admin that LB's Hemp Cafe & Lounge in Kolkata runs on every day." />
+  <meta name="theme-color" content="#0e0c0b" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/png" sizes="256x256" href="public/logo.png" />
+
+  <meta property="og:title" content="The work · The Bare Necessities" />
+  <meta property="og:description" content="Shonku, a personal agent on Telegram, and the ordering system a Kolkata cafe runs on every day." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="public/work/lbs-home.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-work">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- ───────── TOP BAR (laptop and up) ───────── -->
+  <header class="nav" id="nav">
+    <div class="nav-bar">
+      <a class="brand" href="index.html" aria-label="The Bare Necessities, home">
+        <img class="brand-mark" src="public/logo.png" width="28" height="28" alt="" />
+        <span class="brand-text">The Bare Necessities</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html#shonku">Shonku</a>
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="index.html#build">Build with us</a>
+        <a href="index.html#house">The house</a>
+      </nav>
+      <a href="index.html#seat" class="btn btn-primary btn-sm nav-cta">Join the waitlist</a>
+    </div>
+  </header>
+
+  <!-- ───────── TAB BAR (phones) ───────── -->
+  <nav class="tabbar" id="tabbar" aria-label="Sections">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="index.html#shonku">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="11" r="3.2"/><circle cx="15.5" cy="11" r="3.2"/><path d="M11.7 10.6c.2-.3.4-.4.3-.4M3 10.4h2.3M18.7 10.4H21"/></svg>
+      <span>Shonku</span>
+    </a>
+    <a href="work.html" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7" width="17" height="12.5" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3.5 12.5h17"/></svg>
+      <span>Work</span>
+    </a>
+    <a href="index.html#build">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8.5v7M8.5 12h7"/></svg>
+      <span>Build</span>
+    </a>
+    <a href="index.html#seat">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4.5a2.5 2.5 0 0 0 0-5z"/><path d="M14 5.5v13" stroke-dasharray="1.6 2.2"/></svg>
+      <span>Join</span>
+    </a>
+  </nav>
+
+  <main id="main">
+    <!-- ───────── INTRO ───────── -->
+    <section class="work-intro">
+      <div class="wrap">
+        <p class="hero-brand"><img src="public/logo.png" width="26" height="26" alt="" /> The Bare Necessities</p>
+        <h1 class="display">The work.</h1>
+        <p class="lead work-lead">
+          Two things we've made and still look after. <span class="dim">One is our own: a personal agent
+          for a few hundred people. The other runs a cafe in Kolkata, where guests order through it every day.</span>
+        </p>
+
+        <ol class="work-index">
+          <li>
+            <a href="#shonku" class="work-tile">
+              <span class="work-num">01</span>
+              <span class="work-name">Shonku</span>
+              <span class="work-what">A personal agent you write to on Telegram</span>
+              <span class="work-state"><i class="live-dot"></i>Live, by invitation</span>
+            </a>
+          </li>
+          <li>
+            <a href="#lbs" class="work-tile">
+              <span class="work-num">02</span>
+              <span class="work-name">LB's Cafe</span>
+              <span class="work-what">Website, QR table ordering and staff admin for a cafe</span>
+              <span class="work-state"><i class="live-dot"></i>Live at lbscafe.com</span>
+            </a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ═════════════════════ 01 · SHONKU ═════════════════════ -->
+    <article class="case" id="shonku" aria-labelledby="shonku-h">
+      <div class="wrap case-head">
+        <div class="case-title reveal">
+          <p class="work-num">01 · Our own bar</p>
+          <h2 class="display-2" id="shonku-h">Shonku</h2>
+          <p class="lead">
+            A personal agent you reach on Telegram, named after Satyajit Ray's Professor Shonku:
+            curious, capable, kind and a little dry. It remembers you, works on a computer of its own,
+            acts for you only once you've said yes, and writes to you first when something needs doing.
+          </p>
+          <div class="case-links">
+            <a href="index.html#seat" class="btn btn-primary">Join the waitlist</a>
+            <a href="index.html#ask" class="btn btn-quiet">Try a conversation</a>
+          </div>
+        </div>
+        <figure class="case-portrait" aria-hidden="true">
+          <img class="dots-fallback" src="public/art/shonku-portrait-light.svg?v=2" width="400" height="480" alt="" />
+          <canvas class="dots" id="dots"></canvas>
+        </figure>
+      </div>
+
+      <div class="wrap">
+        <dl class="case-facts reveal">
+          <div><dt>Where</dt><dd>Telegram. Nothing to install.</dd></div>
+          <div><dt>Who</dt><dd>Invite-only. Each member gets ten invitations.</dd></div>
+          <div><dt>Status</dt><dd>Live, and growing in small steps</dd></div>
+          <div><dt>Made by</dt><dd>The Bare Necessities</dd></div>
+        </dl>
+      </div>
+
+      <!-- the big screen: the morning briefing -->
+      <div class="wrap case-screen-row">
+        <div class="screen reveal" role="img" aria-label="Shonku's 7:30 briefing on Telegram: standup at 9:30, lunch with Anil at 1, one email from Priya about the lease. Asked what else matters in the inbox, it names the lease by Thursday and the card statement by Friday, and says the rest is newsletters.">
+          <div class="win tg tgd tgd-solo" aria-hidden="true">
+            <div class="tgd-main">
+              <header class="tgd-head"><b>Shonku</b><small>bot</small></header>
+              <div class="tgd-thread">
+                <p class="tg-day"><span>Tuesday</span></p>
+                <div class="tg-row in"><p class="bubble">Good morning. It's Tuesday.<br><br>• <b>9:30</b> Standup<br>• <b>13:00</b> Lunch with Anil (Soi 7)<br>• One email needs you: Priya, about the lease<br><br>Leave by 12:40 for lunch; traffic's heavy.<span class="meta">7:30</span></p></div>
+                <div class="tg-row out"><p class="bubble">anything else in my inbox i actually need to see?<span class="meta">7:42</span></p></div>
+                <div class="tg-row in"><p class="bubble">Two things, really:<br><br>• Priya wants the signed lease by Thursday<br>• Your card statement is due Friday<br><br>The rest is newsletters. Want a line to Priya you can paste?<span class="meta">7:42</span></p></div>
+              </div>
+              <div class="tgd-input">Write a message…</div>
+            </div>
+            <div class="tgd-side">
+              <p class="side-h">Tuesday</p>
+              <ul class="agenda">
+                <li><time>9:30</time><span>Standup</span></li>
+                <li><time>13:00</time><span>Lunch with Anil<small>Soi 7</small></span></li>
+                <li class="free"><time>15:00</time><span>Clear afternoon</span></li>
+              </ul>
+              <p class="side-h">Needs you</p>
+              <ul class="mail">
+                <li><b>Priya</b><span>Signed lease, by Thursday</span></li>
+                <li><b>Card statement</b><span>Due Friday</span></li>
+              </ul>
+              <p class="side-note">14 newsletters, set aside</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap case-body">
+        <div class="case-col reveal">
+          <h3 class="title-sm">What it does</h3>
+          <dl class="pairs">
+            <div><dt>Talks like a person</dt><dd>You write to it the way you'd write to a friend. It replies in seconds, shows a draft while it thinks, reacts to your messages and answers a specific one when that's clearer.</dd></div>
+            <div><dt>Remembers you</dt><dd>It learns the people, places and habits in your life and uses them without being told twice. <span class="cmd">/memory</span> shows what it knows and <span class="cmd">/forget</span> removes it. It never keeps passwords, cards or ID numbers.</dd></div>
+            <div><dt>Briefs you each morning</dt><dd>One short message at a time you set with <span class="cmd">/briefing 7:30</span>: the day's calendar, the email that needs you and the reminders due. Gmail and Calendar are read-only.</dd></div>
+            <div><dt>Keeps your reminders</dt><dd>"Remind me to call Ma at 6" is a reminder set. It also writes first when it notices something, like a clinic you meant to call.</dd></div>
+            <div><dt>Hears and speaks</dt><dd>Send a voice note and it understands it. For short things it answers in a calm, older voice; type, and it types.</dd></div>
+            <div><dt>Reads what you send</dt><dd>Photos and PDFs, and the web: it searches and reads pages to answer properly.</dd></div>
+            <div><dt>Uses a browser of its own</dt><dd>It books, compares and fills forms on real sites. When a page needs a password, a one-time code or a card, a sealed form puts it straight into the page, and Shonku never sees the secret.</dd></div>
+            <div><dt>Talks to your friends' agents</dt><dd>Through <a class="goto" href="https://chakramcp.com" target="_blank" rel="noopener">ChakraMCP</a>, our network for AI agents, "find us somewhere for dinner" gets your friends' agents to agree on one place.</dd></div>
+          </dl>
+        </div>
+
+        <div class="case-col reveal">
+          <h3 class="title-sm">What it won't do</h3>
+          <ul class="checks">
+            <li>Buy, send, post or delete without asking you first</li>
+            <li>Store a password</li>
+            <li>See another person's chat</li>
+            <li>Obey instructions written in a web page or an email</li>
+            <li>Sell or share your data</li>
+          </ul>
+
+          <h3 class="title-sm case-sub">How it's built</h3>
+          <ul class="stack">
+            <li><b>Telegram</b><span>where you talk to it</span></li>
+            <li><b>Claude Opus 5.5</b><span>its main brain</span></li>
+            <li><b>Temporal</b><span>one durable agent per person, so a crash never loses a message</span></li>
+            <li><b>Postgres</b><span>with row-level security: each person's data is walled off</span></li>
+            <li><b>Google Workspace</b><span>Calendar and Gmail, read-only</span></li>
+            <li><b>Sarvam</b><span>voice, both ways</span></li>
+          </ul>
+          <p class="case-note">We test it by killing its workers in the middle of conversations and checking that every message still gets exactly one reply.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ═════════════════════ 02 · LB'S CAFE ═════════════════════ -->
+    <article class="case case-lbs" id="lbs" aria-labelledby="lbs-h">
+      <div class="wrap case-head case-head-wide">
+        <div class="case-title reveal">
+          <p class="work-num">02 · Built for a cafe</p>
+          <h2 class="display-2" id="lbs-h">LB's Cafe</h2>
+          <p class="lead">
+            The website, QR table ordering and staff admin for LB's Hemp Cafe &amp; Lounge, a cafe and lounge
+            from the Limon Bandits crew in Salt Lake, Kolkata. It's live, and the cafe's guests order through it every day.
+          </p>
+          <div class="case-links">
+            <a href="https://lbscafe.com" class="btn btn-primary" target="_blank" rel="noopener">Visit lbscafe.com ↗</a>
+            <a href="https://github.com/kaustav1996/lbs-cafe" class="btn btn-quiet" target="_blank" rel="noopener">See the source ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- the big screen: the site on a laptop, with the phone beside it -->
+      <div class="wrap case-screen-row">
+        <figure class="shots reveal">
+          <div class="shot-desk">
+            <div class="br-top" aria-hidden="true"><span class="lights"><i></i><i></i><i></i></span><span class="br-url">lbscafe.com</span></div>
+            <picture>
+              <source media="(max-width: 760px)" srcset="public/work/lbs-home-960.webp" />
+              <img src="public/work/lbs-home.webp" width="1600" height="1000" loading="lazy" decoding="async"
+                   alt="lbscafe.com on a laptop: the headline “Eat loud. Stay late.”, buttons to see the menu and book a table, a record player with the Limon Bandits lemon on the label, and photographs of the cafe's neon-lit rooms below." />
+            </picture>
+          </div>
+          <div class="shot-phones">
+            <img class="shot-phone" src="public/work/lbs-phone-menu.webp" width="720" height="1558" loading="lazy" decoding="async"
+                 alt="The menu on a phone: sections as cassette tapes, a search box, a veg-only switch, and items with prices and an add button. Menu, Order and Book sit in a bar at the bottom." />
+            <img class="shot-phone" src="public/work/lbs-phone-home.webp" width="720" height="1558" loading="lazy" decoding="async"
+                 alt="The cafe's home page on a phone, with the record player under the headline." />
+          </div>
+        </figure>
+      </div>
+
+      <div class="wrap">
+        <dl class="case-facts reveal">
+          <div><dt>Menu</dt><dd>126 dishes and drinks in 11 sections, with live sold-out flags</dd></div>
+          <div><dt>Tables</dt><dd>Each has a printed QR sticker that opens its own order</dd></div>
+          <div><dt>Games</dt><dd>Ten, unlocked once a table orders</dd></div>
+          <div><dt>Runs on</dt><dd>One Cloudflare Worker</dd></div>
+        </dl>
+      </div>
+
+      <div class="wrap case-body">
+        <div class="case-col reveal">
+          <h3 class="title-sm">For guests</h3>
+          <ul class="checks">
+            <li>The full menu, with search and a veg-only switch</li>
+            <li>Scan the table's QR code and order from the phone; takeaway orders too</li>
+            <li>An order page that updates itself as the kitchen moves</li>
+            <li>“Call a server” for water, the bill or someone to come over</li>
+            <li>Table bookings, and a stamp card: the fifth visit is half price</li>
+          </ul>
+
+          <h3 class="title-sm case-sub">Games at the table</h3>
+          <p class="body-lg">Once a table orders, its games unlock: eight single-player ones like Flappy Bandit and Snake, plus two
+            multiplayer ones, a card game for up to ten and a space shooter that every table in the room shares.</p>
+        </div>
+
+        <div class="case-col reveal">
+          <h3 class="title-sm">For the staff</h3>
+          <ul class="checks">
+            <li>A live orders board that chimes for new orders and table calls: new, preparing, ready, served</li>
+            <li>A till for walk-ins and phone orders, with discounts and split bills</li>
+            <li>UPI, cash and card; 80 mm printed bills with GST split into CGST and SGST</li>
+            <li>Sold-out switches and price edits from the menu screen</li>
+            <li>Bookings, customers, and reports on sales, busy hours and best sellers, with a GST report to download</li>
+            <li>Separate logins for the owner, managers and staff</li>
+          </ul>
+
+          <h3 class="title-sm case-sub">How it's built</h3>
+          <ul class="stack">
+            <li><b>React, Vite, TypeScript</b><span>the site and the admin</span></li>
+            <li><b>Hono</b><span>the API, on the same Cloudflare Worker</span></li>
+            <li><b>Supabase Postgres</b><span>in Mumbai, through Cloudflare Hyperdrive</span></li>
+            <li><b>Durable Objects</b><span>push new orders to the staff screens the moment they land</span></li>
+          </ul>
+          <p class="case-note">Every push runs the end-to-end tests against a throwaway database before the cafe's site is updated.</p>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <p class="case-visit reveal">Visit the cafe: LB's, 29, BJ Block, Sector 2, Salt Lake, Kolkata 700091. Open every day, 10 am to 10 pm.</p>
+      </div>
+    </article>
+
+    <!-- ───────── NEXT ───────── -->
+    <section class="section work-next">
+      <div class="wrap work-next-inner reveal">
+        <h2 class="title">Yours could be next.</h2>
+        <p class="body-lg">A clinic's booking agent, an app for a members' club, a tool for one team's odd way of working.
+          Tell us who it's for and what it should do. We read every brief and reply by email.</p>
+        <div class="case-links">
+          <a href="index.html#build" class="btn btn-primary btn-lg">Send us a brief</a>
+          <a href="mailto:kaustav@banerjee.life" class="btn btn-quiet btn-lg">Write to us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ───────── FOOTER ───────── -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-cols">
+        <ul>
+          <li class="kind">The Bare Necessities</li>
+          <li>A Delta&nbsp;S&nbsp;Labs brand</li>
+          <li>A cocktail bar, not a chain</li>
+        </ul>
+        <ul>
+          <li class="kind">The bar</li>
+          <li><a href="index.html#idea">The idea</a></li>
+          <li><a href="index.html#house">The house</a></li>
+          <li><a href="work.html">The work</a></li>
+          <li><a href="index.html#build">Build with us</a></li>
+        </ul>
+        <ul>
+          <li class="kind">Shonku</li>
+          <li><a href="index.html#ask">Try it</a></li>
+          <li><a href="index.html#memory">What it does</a></li>
+          <li><a href="index.html#vault">The vault</a></li>
+          <li><a href="index.html#seat">Join the waitlist</a></li>
+        </ul>
+        <ul>
+          <li class="kind">Elsewhere</li>
+          <li><a href="https://lbscafe.com" target="_blank" rel="noopener">lbscafe.com ↗</a></li>
+          <li><a href="https://chakramcp.com" target="_blank" rel="noopener">ChakraMCP ↗</a></li>
+          <li><a href="https://banerjee.life" target="_blank" rel="noopener">banerjee.life ↗</a></li>
+          <li><a href="mailto:kaustav@banerjee.life">kaustav@banerjee.life</a></li>
+        </ul>
+      </div>
+
+      <p class="credits">The pictures of LB's are screenshots of lbscafe.com. The portrait of the Professor is an original
+        line drawing made for this site; Professor&nbsp;Shonku is a character created by Satyajit&nbsp;Ray.
+      </p>
+
+      <svg class="footer-mark" viewBox="0 0 100 11" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <text x="50" y="9.1" text-anchor="middle" textLength="99" lengthAdjust="spacingAndGlyphs">The Bare Necessities</text>
+      </svg>
+      <p class="legal">© <span id="year">2026</span> The Bare Necessities, a Delta&nbsp;S&nbsp;Labs company. Made close to the people who use it.</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
