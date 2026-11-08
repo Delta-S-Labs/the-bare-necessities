@@ -21,6 +21,8 @@ const update = () => {
   let current = 'top';
   tabSections.forEach((el) => { if (el.getBoundingClientRect().top <= line) current = el.dataset.tab; });
   tabs.forEach((a) => {
+    if (a.getAttribute('aria-current') === 'page') return; // the page you're on stays lit
+    if (a.pathname !== location.pathname) return;                // a tab to another page isn't a section here
     if (a.hash === '#' + current) a.setAttribute('aria-current', 'location');
     else a.removeAttribute('aria-current');
   });
@@ -143,7 +145,7 @@ if (canvas && canvas.getContext){
   window.addEventListener('resize', () => { size(); draw(performance.now()); }, { passive: true });
   // only animate while he's on screen
   new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop())).observe(canvas);
-  const hero = document.querySelector('.hero');
+  const hero = canvas.closest('.hero, .case') || document.body;
   hero.addEventListener('pointermove', (e) => {
     const r = canvas.getBoundingClientRect();
     pointer = { x: e.clientX - r.left, y: e.clientY - r.top };
