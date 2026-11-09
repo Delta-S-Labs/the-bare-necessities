@@ -9,6 +9,7 @@
 
 import express from 'express';
 import pg from 'pg';
+import { mountDemo, makeDemoPgStore, makeDemoMemoryStore } from './demo.js';
 
 const PORT = process.env.PORT || 3000;
 const DATABASE_URL = process.env.DATABASE_URL || '';
@@ -30,6 +31,7 @@ const BACKUP_DELAY_MS = 20_000; // saves within this window share one run
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* ───────────────────────── storage ───────────────────────── */
+let demoStore; // the client demos' collections (see demo.js)
 let store; // { add(entry) -> {already}, list() -> [...], count() -> n,
            //   addProject(entry), listProjects() -> [...] }
 
@@ -69,6 +71,7 @@ async function makePgStore(url) {
       created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
+  demoStore = await makeDemoPgStore(pool);
   return {
     async add(e) {
       const res = await pool.query(
@@ -111,6 +114,7 @@ function makeMemoryStore() {
     '[waitlist] No DATABASE_URL — using an IN-MEMORY store. ' +
     'Data will NOT persist across restarts. Set DATABASE_URL for production.'
   );
+  demoStore = makeDemoMemoryStore();
   const byEmail = new Map();
   const projects = [];
   return {
@@ -163,8 +167,8 @@ function cors(req, res) {
   if (ok) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Vary', 'Origin');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Token');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Token, X-Demo-Passcode');
     res.setHeader('Access-Control-Max-Age', '86400');
   }
 }
@@ -351,6 +355,9 @@ app.get('/api/projects/export.csv', async (req, res) => {
     res.status(500).json({ error: 'Could not export.' });
   }
 });
+
+// Client demos: shop collections their owners manage (demo.js).
+mountDemo(app, { getStore: () => demoStore, rateLimited });
 
 /* ───────────────────────── boot ───────────────────────── */
 (async () => {

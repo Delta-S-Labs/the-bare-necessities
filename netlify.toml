@@ -6,7 +6,7 @@
 [build]
   base = ""
   publish = "dist"
-  command = "rm -rf dist && mkdir dist && cp -r index.html work.html styles.css script.js favicon.svg public dist/"
+  command = "rm -rf dist && mkdir dist && cp -r index.html work.html styles.css script.js favicon.svg public demo dist/"
 
 # Long cache for static art/assets (filenames are stable).
 [[headers]]
@@ -24,3 +24,15 @@
   for = "/work.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Client demos stay out of search. Their pages revalidate (Netlify's default);
+# their pictures keep for a day.
+[[headers]]
+  for = "/demo/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/demo/*/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"

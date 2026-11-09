@@ -6,7 +6,9 @@ container, so the list **persists across restarts, redeploys and scale-to-zero**
 
 ```
 server/
-  index.js        # the whole service (~200 lines, 2 deps)
+  index.js        # the waitlist and project briefs (2 deps)
+  demo.js         # client demos: a shop collection its owner manages
+  demo-shops.js   # the demo shops and the pieces each one starts with
   package.json
   .env.example
 ../render.yaml     # provisions the DB + this service on Render
@@ -27,6 +29,29 @@ server/
 Admin routes need the `ADMIN_TOKEN`, sent as `X-Admin-Token:` header or
 `?token=` query. POST is rate-limited (10/min/IP), validated, de-duplicated on
 email, and has a honeypot (`company`) field for bots.
+
+## Client demos
+
+Shops we build as demos for a client live on the site at `/demo/<slug>/`, with
+the owner's admin page at `/demo/<slug>/admin/`. Their collections live in the
+same Postgres (tables `demo_shops`, `demo_pieces`, `demo_photos`); the first
+call for a shop fills it with the starting pieces from `demo-shops.js`.
+
+| Method | Path                               | Who   | Does                                  |
+|--------|------------------------------------|-------|---------------------------------------|
+| GET    | `/api/demo/:shop/pieces`           | public | The pieces on show (hidden ones too, for the owner) |
+| POST   | `/api/demo/:shop/login`            | owner | Check the passcode                    |
+| POST   | `/api/demo/:shop/pieces`           | owner | Add a piece                           |
+| PUT    | `/api/demo/:shop/pieces/:id`       | owner | Change a piece                        |
+| DELETE | `/api/demo/:shop/pieces/:id`       | owner | Remove a piece                        |
+| PUT    | `/api/demo/:shop/order`            | owner | Set the order `{ ids: [...] }`        |
+| POST   | `/api/demo/:shop/photos`           | owner | Upload one photo (raw JPEG/PNG/WebP, 3 MB max) |
+| GET    | `/api/demo/:shop/photos/:id`       | public | A photo                              |
+
+The owner's passcode is the env var `DEMO_PASSCODE_<SLUG>`: the slug in capitals
+with dashes as underscores, e.g. `DEMO_PASSCODE_RAJANIS_BOUTIQUE`. It travels as
+the `X-Demo-Passcode` header. Without it the shop page works and the admin page
+says it isn't set up yet. Use a long passcode (four or five random words).
 
 ## Back up new rows straight away (optional)
 
