@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <base href="/demo/rajanis-boutique/">
+  <title>Collection · Rajani's Boutique</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#ecebe7">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2338450f'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-weight='700' font-size='20' fill='%23ecebe7' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Besley:wght@800&family=Libre+Franklin:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="top" data-ui>
+    <a class="top-mark" href="./" title="View the shop">Rajani's</a>
+    <span class="top-where">Collection</span>
+    <nav class="top-links" aria-label="Admin">
+      <a href="./" target="_blank" rel="noopener">View the shop ↗</a>
+      <button class="link" type="button" id="signout" hidden>Sign out</button>
+    </nav>
+  </header>
+
+  <!-- Sign in -->
+  <main class="signin" id="signin" data-ui>
+    <form class="signin-card" id="signin-form" novalidate>
+      <div class="tape" aria-hidden="true"></div>
+      <div class="signin-in">
+        <h1>Manage your collection</h1>
+        <p>Add new pieces, change prices and photos, or take things off the site. Changes show on the shop page straight away.</p>
+        <label class="field">
+          <span>Passcode</span>
+          <input type="password" id="passcode" name="passcode" autocomplete="current-password" required aria-describedby="signin-msg">
+        </label>
+        <button class="btn btn-wide" type="submit" id="signin-btn">Sign in</button>
+        <p class="note" id="signin-msg" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </main>
+
+  <!-- The collection -->
+  <main class="manage" id="manage" hidden data-ui>
+    <div class="manage-head">
+      <div>
+        <h1>Collection</h1>
+        <p class="counts" id="counts"></p>
+      </div>
+      <button class="btn" type="button" id="add">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a piece
+      </button>
+    </div>
+    <div class="filters" role="tablist" aria-label="Show" id="filters"></div>
+    <p class="note" id="list-msg" role="status" aria-live="polite"></p>
+    <ul class="list" id="list"></ul>
+  </main>
+
+  <!-- Add or edit one piece -->
+  <dialog class="editor" id="editor" aria-labelledby="editor-title" data-ui>
+    <form id="editor-form" novalidate>
+      <div class="editor-head">
+        <h2 id="editor-title">Add a piece</h2>
+        <button class="icon" type="button" id="editor-close" aria-label="Close without saving">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <div class="editor-body">
+        <fieldset class="photos">
+          <legend>Photos</legend>
+          <p class="hint" id="photos-hint">Up to 6. The first one shows in the collection. Portrait photos (taller than wide) look best.</p>
+          <ul class="photo-list" id="photo-list"></ul>
+          <label class="btn btn-quiet photo-add" id="photo-add">
+            <input type="file" id="photo-input" accept="image/*" multiple aria-describedby="photos-hint">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add photos
+          </label>
+        </fieldset>
+
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" maxlength="120" required placeholder="Bottle-green lehenga with a net dupatta">
+        </label>
+
+        <div class="two">
+          <label class="field">
+            <span>Category</span>
+            <select name="category" required></select>
+          </label>
+          <label class="field">
+            <span>Price in ₹</span>
+            <input type="text" name="price" inputmode="numeric" placeholder="Leave empty for “Price on request”" aria-describedby="price-hint">
+            <small id="price-hint" class="hint">Numbers only, e.g. 4500.</small>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Fabric and work</span>
+          <input type="text" name="fabric" maxlength="200" placeholder="Silk with zari border">
+        </label>
+
+        <label class="field">
+          <span>Description</span>
+          <textarea name="description" rows="4" maxlength="1200" placeholder="What makes it special, what it goes with, how long stitching takes."></textarea>
+        </label>
+
+        <fieldset class="checks">
+          <legend>Ready sizes</legend>
+          <div class="chips" id="size-chips"></div>
+        </fieldset>
+
+        <fieldset class="checks">
+          <legend>On the site</legend>
+          <label class="check"><input type="checkbox" name="madeToMeasure"><span>Can be stitched to measure</span></label>
+          <label class="check"><input type="checkbox" name="isNew"><span>Mark as new</span></label>
+          <label class="check"><input type="checkbox" name="shown" checked><span>Show on the shop page</span></label>
+        </fieldset>
+        <p class="note" id="editor-msg" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="editor-foot">
+        <button class="link danger" type="button" id="delete" hidden>Remove from the collection</button>
+        <span class="spacer"></span>
+        <button class="btn btn-quiet" type="button" id="cancel">Cancel</button>
+        <button class="btn" type="submit" id="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="admin.js" defer></script>
+</body>
+</html>
