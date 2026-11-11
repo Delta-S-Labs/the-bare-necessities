@@ -145,15 +145,18 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   .hero-lead, .hero-aside{ max-width:56%; }
   .dots-fig{ width:min(42%, 460px); }
 }
+.hero-cta{ margin-top:32px; }
 .prompt{
-  margin-top:36px; max-width:470px; padding:18px 20px 20px; border-radius:20px;
+  margin-top:28px; max-width:470px; padding:18px 20px 20px; border-radius:20px;
   background:rgba(23,20,18,.8); border:1px solid var(--line);
   -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
 }
 .prompt-label{ font-size:13px; color:var(--text-3); }
 .prompt-text{ margin-top:6px; font-size:19px; line-height:1.35; font-weight:500; letter-spacing:-.015em; }
 .prompt-text::before{ content:"“"; } .prompt-text::after{ content:"”"; }
-.prompt-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+.prompt-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:6px 18px; margin-top:14px; }
+.prompt-link{ font-size:14px; color:var(--text-2); text-underline-offset:.2em; }
+.prompt-link:hover{ color:var(--text); }
 .hero-aside{ margin-top:16px; font-size:15px; color:var(--text-3); }
 .hero-aside a{ color:var(--text-2); }
 .hero-aside a:hover{ color:var(--text); }
@@ -175,8 +178,8 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   .hero-grid{ min-height:0; }
   .dots-fig{ top:30px; right:-6%; translate:none; width:62%; opacity:.6; }
   .hero-lead{ margin-top:20px; }
-  .prompt{ margin-top:26px; }
-  .prompt-actions .btn{ flex:1; }
+  .hero-cta .btn{ width:100%; }
+  .prompt{ margin-top:22px; }
   .film-frame{ border-radius:16px; } .film video{ aspect-ratio:4/3.4; }
 }
 
@@ -224,20 +227,11 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .steps figcaption{ margin-top:18px; font-size:14px; color:var(--text-3); }
 @media (max-width: 880px){ .guests{ grid-template-columns:1fr; } }
 
-/* ───────── the house ───────── */
-.house{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:clamp(40px, 6vw, 72px); }
-.node{ display:block; padding:clamp(22px, 3vw, 34px); border-radius:var(--radius); border:1px solid var(--line); text-decoration:none; transition:background-color .2s, border-color .2s; }
-.node h3{ font-size:22px; font-weight:600; letter-spacing:-.02em; margin-bottom:8px; }
-.node p{ color:var(--text-2); }
-.node-co{ grid-column:1 / -1; background:var(--bg-raised); }
-a.node:hover{ background:var(--bg-raised); border-color:var(--line-2); }
-.node .goto{ display:inline-block; margin-top:18px; }
-.node-here{ border-color:var(--line-2); }
-.bars{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+/* the live dot, used across the page */
+.bars{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
 .bars li{ font-size:14px; padding:6px 12px; border-radius:999px; border:1px solid var(--line-2); color:var(--text-2); }
 .bars li.live{ color:var(--text); border-color:transparent; background:var(--bg-high); }
 .bars li.live::before, .live-dot{ content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--live); margin-right:8px; vertical-align:1px; box-shadow:0 0 0 4px rgba(233,177,93,.14); }
-@media (max-width: 640px){ .house{ grid-template-columns:1fr; } }
 
 /* ───────── Shonku ───────── */
 .shonku{ padding-bottom:clamp(40px, 6vw, 72px); }
@@ -494,8 +488,35 @@ a.node:hover{ background:var(--bg-raised); border-color:var(--line-2); }
 .footer-cols a{ display:inline-flex; align-items:center; min-height:36px; text-decoration:none; color:var(--text-2); }
 .footer-cols a:hover{ color:var(--text); }
 .footer-cols .kind{ margin-bottom:10px; color:var(--text); font-weight:600; font-size:15px !important; }
+/* the house, at the top of the footer: the company, and the two things it runs */
+.house{ display:grid; grid-template-columns:minmax(0, .8fr) minmax(0, 1fr) minmax(0, 1fr); gap:16px; align-items:stretch;
+  padding-bottom:clamp(48px, 6vw, 72px); margin-bottom:clamp(48px, 6vw, 72px); border-bottom:1px solid var(--line); }
+.house-intro .kind{ color:var(--text); font-weight:600; font-size:15px; margin-bottom:10px; }
+.house-title{ font-family:var(--display); font-size:var(--step-title-sm); font-weight:600; letter-spacing:-.03em; line-height:1.05; }
+.house-intro p:last-child{ margin-top:12px; color:var(--text-2); font-size:15px; max-width:28ch; }
+.house-card{ display:flex; flex-direction:column; border-radius:var(--radius); border:1px solid var(--line); background:var(--bg-raised);
+  overflow:hidden; text-decoration:none; transition:border-color .2s; }
+a.house-card:hover{ border-color:var(--line-2); }
+a.house-card:hover .goto{ border-color:var(--text); }
+.house-pic{ aspect-ratio:800 / 426; background:#ebeae6; }
+.house-pic video{ display:block; width:100%; height:100%; object-fit:cover; }
+.house-body{ padding:20px 22px 22px; }
+.house-body h3{ font-size:18px; font-weight:600; letter-spacing:-.02em; margin-bottom:6px; }
+.house-body p{ color:var(--text-2); font-size:15px; }
+.house-body .goto{ display:inline-block; margin-top:14px; font-size:15px; }
+.house-prof{ position:relative; overflow:hidden; background:var(--bg-high); }
+.house-prof img{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); height:94%; width:auto; max-width:none; }
+@media (max-width: 960px){
+  .house{ grid-template-columns:1fr 1fr; }
+  .house-intro{ grid-column:1 / -1; }
+}
+@media (max-width: 600px){ .house{ grid-template-columns:1fr; } }
+
 .credits{ margin-top:48px; max-width:72ch; font-size:13px; line-height:1.6; color:var(--text-3); }
-.credits a{ color:var(--text-2); }
+/* on the Work page, the Professor sits small beside his credit */
+div.credits{ display:flex; align-items:center; gap:18px; max-width:none; }
+.credits-portrait{ width:56px; height:auto; flex:none; }
+.credits p{ max-width:72ch; }
 .footer-mark{ width:100%; margin-top:48px; }
 .footer-mark text{ font-family:var(--display); font-weight:700; font-size:10px; fill:#1d1916; letter-spacing:-.04em; }
 .legal{ margin-top:18px; font-size:13px; color:var(--text-3); }

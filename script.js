@@ -66,7 +66,8 @@ if (!reduce && 'IntersectionObserver' in window){
 
 /* ───────────────────── the Professor, in dots ─────────────────────
    The line portrait, redrawn as a field of square dots: a lit beard, a dimmer head, dark eyes
-   inside bright spectacles. The dots shimmer, and swell near the pointer. */
+   inside bright spectacles. The dots shimmer, swell near the pointer, and light rains down
+   through the beard below his moustache, column by column. */
 const canvas = document.getElementById('dots');
 if (canvas && canvas.getContext){
   document.documentElement.classList.add('js-dots');
@@ -107,8 +108,31 @@ if (canvas && canvas.getContext){
     // the empty room around him keeps a faint dust of dots, fading out towards the edges
     const d = Math.hypot((x - COLS / 2) / (COLS / 2), (y - ROWS * .52) / (ROWS / 2));
     const dust = Math.max(0, 1 - d) ** 1.6 * 0.06;
-    cells.push({ x, y, v: a > 0.05 ? Math.max(v, 0.08) : dust, inside: a > 0.05, seed: Math.random() * 6.283 });
+    cells.push({ x, y, v: a > 0.05 ? Math.max(v, 0.08) : dust, inside: a > 0.05, seed: Math.random() * 6.283,
+                 // only the beard below the moustache rains, so it never runs down his face like tears
+                 beard: (y + .5) * 480 / ROWS > 262 && s.isPointInPath(BEARD, x + .5, y + .5) });
   }
+
+  // the rain: one drop per beard column, each with its own speed, tail and pause before it falls again
+  const drops = new Map();
+  for (const c of cells) if (c.beard){
+    const d = drops.get(c.x) || { top: c.y, bottom: c.y };
+    d.top = Math.min(d.top, c.y); d.bottom = Math.max(d.bottom, c.y);
+    drops.set(c.x, d);
+  }
+  for (const d of drops.values()){
+    d.speed = 9 + Math.random() * 13;          // rows a second
+    d.tail = 5 + Math.round(Math.random() * 9);
+    d.span = d.bottom - d.top + d.tail + 4 + Math.random() * 30;
+    d.phase = Math.random() * d.span;
+  }
+  // how lit a beard dot is by the drop passing down its column: 1 at the head, fading up the tail
+  const rain = (c, t) => {
+    const d = drops.get(c.x);
+    const head = d.top + (t / 1000 * d.speed + d.phase) % d.span;
+    const k = head - c.y;
+    return k >= 0 && k < d.tail ? (1 - k / d.tail) ** 1.8 : 0;
+  };
 
   let w = 0, h = 0, cell = 0, dpr = 1, pointer = null, running = false, raf = 0;
   const size = () => {
@@ -124,16 +148,19 @@ if (canvas && canvas.getContext){
     for (const c of cells){
       let v = c.v;
       if (c.inside && !reduce) v *= 0.82 + 0.18 * Math.sin(t / 900 + c.seed);   // the shimmer
-      let grow = 0;
+      let grow = 0, lit = 0;
+      if (c.beard && !reduce){ lit = rain(c, t); v = v * 0.62 + lit * 0.5; }
       if (pointer && !reduce){
         const dx = (c.x + .5) * cell - pointer.x, dy = (c.y + .5) * cell - pointer.y;
         const near = Math.max(0, 1 - Math.hypot(dx, dy) / (cell * 9));
         v = Math.min(1, v + near * (c.inside ? 0.45 : 0.18)); grow = near * gap * 0.9;
       }
       if (v < 0.012) continue;
+      v = Math.min(1, v);
       const l = Math.round(24 + Math.pow(v, 1.25) * 222);
-      ctx.fillStyle = `rgb(${l},${l - 4},${l - 10})`;
-      const sz = cell - gap + grow;
+      // the head of each drop runs a touch warmer, like light through a glass of something amber
+      ctx.fillStyle = lit > 0.85 ? `rgb(${Math.min(255, l + 6)},${l - 14},${l - 48})` : `rgb(${l},${l - 4},${l - 10})`;
+      const sz = cell - gap + grow + (lit > 0.85 ? gap * 0.5 : 0);
       ctx.fillRect(c.x * cell + (cell - sz) / 2, c.y * cell + (cell - sz) / 2, sz, sz);
     }
   };
