@@ -1,0 +1,13 @@
+/* ChakraMCP, read from chakramcp.com's :root (Nov 2026). Only for the ChakraMCP card's loop. */
+:root{
+  --brand-background: #ebeae6;   /* paper */
+  --brand-surface: #f4f4f1;      /* paper-soft */
+  --brand-text: #2c191a;         /* ink */
+  --brand-color-1: #675a58;      /* ink-muted */
+  --brand-color-2: #c0bdb8;      /* line */
+  --brand-color-3: #b2e46b;      /* lime: an answer arrived */
+  --brand-accent: #e54d42;       /* coral: the relay */
+  --brand-font-heading: "Geist", system-ui, sans-serif;
+  --brand-font: "Geist", system-ui, sans-serif;
+  --brand-radius: 22px;
+}
